@@ -29,6 +29,7 @@ def showBranches(customer):
               '2.Parque Pinheiro\n'
               '3.Hélvio Basso\n'
               '4.Venâncio Aires\n'
+              '5.Camobi\n'
               '----------------------------\n'
               '9.VOLTAR\n'
               '0.SAIR\n')
@@ -67,21 +68,31 @@ def showBranches(customer):
               '0.SAIR\n')
 
 
+def showBranch(option, values):
+    for i, row in enumerate(values):
+        if option == 9:
+            break
+
+        if 'Loja' in row[0]:
+            branchName = row[0]
+            print(branchName.upper())
+            values.pop(i)
+
+    return values
+
+
 def showCompTypes(branchName):
     header(f'> TIPO DE COMPUTADOR - {branchName} <\n')
-
-    print('C.Concentrador\n'
-          'V.Vasilhame (Se houver)\n'
+    print('(C).Concentrador\n'
+          'V -> Vasilhame (Se houver)\n'
           'P.Pdv\n'
           '-----------------------\n'
           '9.VOLTAR\n'
           '0.SAIR\n')
 
 
-def showConcOptions(branchName):
-    header(f'> CONCENTRADOR - {branchName} <\n')
-
-    print('1.Editar\n'
+def showConcOptions():
+    print('\nC.Editar\n'
           '-----------------------\n'
           '9.VOLTAR\n'
           '0.SAIR\n')
@@ -115,30 +126,83 @@ def showCompData(infoName,
 
 def displayCompInfo(finalValues, customerName):
     for i, row in enumerate(finalValues):
-        if i < (len(finalValues)):
-            (name,
-             ip,
-             currentVersion,
-             oldVersion,
-             updateDate,
-             clisitefVersion,
-             jarDate,
-             vpnDate,
-             routeDate,
-             bdSize,
-             bdCleanDate,
-             maintenanceDate) = getCompData(row, customerName)
+        (name,
+         ip,
+         currentVersion,
+         oldVersion,
+         updateDate,
+         clisitefVersion,
+         jarDate,
+         vpnDate,
+         routeDate,
+         bdSize,
+         bdCleanDate,
+         maintenanceDate) = getCompData(row, customerName)
 
-            print('---------------------------')
-            showCompData(infoName=name,
-                         infoIP=ip,
-                         infoCurrentVersion=currentVersion,
-                         infoOldVersion=oldVersion,
-                         infoUpdateDate=updateDate,
-                         infoClisitefVersion=clisitefVersion,
-                         infoJarDate=jarDate,
-                         infoVPNDate=vpnDate,
-                         infoRouteDate=routeDate,
-                         infoBDSize=bdSize,
-                         infoBDCleanDate=bdCleanDate,
-                         infoMaintenanceDate=maintenanceDate)
+        print('---------------------------')
+        showCompData(infoName=name,
+                     infoIP=ip,
+                     infoCurrentVersion=currentVersion,
+                     infoOldVersion=oldVersion,
+                     infoUpdateDate=updateDate,
+                     infoClisitefVersion=clisitefVersion,
+                     infoJarDate=jarDate,
+                     infoVPNDate=vpnDate,
+                     infoRouteDate=routeDate,
+                     infoBDSize=bdSize,
+                     infoBDCleanDate=bdCleanDate,
+                     infoMaintenanceDate=maintenanceDate)
+
+
+def showAddCompData(infoProcessor,
+                    infoMemory,
+                    infoStorage,
+                    infoOperationalSystem):
+    print('  Processador:', infoProcessor, '\n  '
+          'Memória:', infoMemory, '\n  '
+          'Armazenamento:', infoStorage, '\n  '
+          'Sistema Operacional:', infoOperationalSystem)
+
+
+def displayCompInfoByType(compValues, compAddValues, customerName, compType):
+    for i, row in enumerate(compValues):
+        if compType == 'c':
+            if 'concentrador' in row[0].lower():
+                (name,
+                 ip,
+                 currentVersion,
+                 oldVersion,
+                 updateDate,
+                 clisitefVersion,
+                 jarDate,
+                 vpnDate,
+                 routeDate,
+                 bdSize,
+                 bdCleanDate,
+                 maintenanceDate) = getCompData(row, customerName)
+
+                compAddRow = compAddValues[i]
+                (name_add,
+                 ip_add,
+                 processor,
+                 memory,
+                 storage,
+                 operationalSystem) = getAddCompData(compAddRow)
+
+                print('---------------------------')
+                showCompData(infoName=name,
+                             infoIP=ip,
+                             infoCurrentVersion=currentVersion,
+                             infoOldVersion=oldVersion,
+                             infoUpdateDate=updateDate,
+                             infoClisitefVersion=clisitefVersion,
+                             infoJarDate=jarDate,
+                             infoVPNDate=vpnDate,
+                             infoRouteDate=routeDate,
+                             infoBDSize=bdSize,
+                             infoBDCleanDate=bdCleanDate,
+                             infoMaintenanceDate=maintenanceDate, )
+                showAddCompData(infoProcessor=processor,
+                                infoMemory=memory,
+                                infoStorage=storage,
+                                infoOperationalSystem=operationalSystem)

@@ -1,3 +1,17 @@
+def cleaningData(values):
+    for i, row in enumerate(values):
+        if not row:  # [] -- Pops empty rows
+            values.pop(i)
+        for register in row:
+            if register == 'Descrição' or 'verificação' in register:  # Pops the headers and BD verification row
+                values.pop(i)
+                break
+            else:
+                continue
+
+    return values
+
+
 def getCompData(infoRow, customerName):
     if customerName.lower() == 'beltrame':
         (infoName,
@@ -131,3 +145,18 @@ def getCompData(infoRow, customerName):
 
     else:
         print('getPCData(); Erro no recebimento dos dados do cliente.')
+
+
+def getAddCompData(infoRow):
+    (infoName,
+     infoIP,
+     infoProcessor,
+     infoMemory,
+     infoStorage,
+     infoOperationalSystem) = infoRow
+    return (infoName,
+            infoIP,
+            infoProcessor,
+            infoMemory,
+            infoStorage,
+            infoOperationalSystem)
