@@ -19,9 +19,10 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 # The ID and range of a sample spreadsheet.
 SAMPLE_SPREADSHEET_ID = '1zxWiR0S2ZGTkLAlipqbuODsazF6YHTkNs0b7YVnFXfo'
 SAMPLE_RANGE_NAME = 'Beltrame!A5:K90'
+HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A5:G90'
 
 
-def main(sample_range_name=SAMPLE_RANGE_NAME):
+def main(sample_range_name):
     global values
     creds = None
 
@@ -32,8 +33,6 @@ def main(sample_range_name=SAMPLE_RANGE_NAME):
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            # flow = InstalledAppFlow.from_client_secrets_file(
-            #     'credentials.json', SCOPES)
             flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
@@ -64,19 +63,19 @@ def main(sample_range_name=SAMPLE_RANGE_NAME):
     return values
 
 
-if __name__ == '__main__':
-    main()
-
+control = 0
 
 # Customer selection screen
 while True:
-    customer = 0
     customers = [1, 2, 3, 4, 5]
+    customer = 404
     customerName = ''
 
     showCustomers()
     while customer not in customers:
         customer = int(input('Selecione um cliente: '))
+        if customer == 0:
+            quit()
         if customer not in customers:
             os.system('cls')
             showCustomers()
@@ -86,9 +85,8 @@ while True:
     # Branch selection screen
     while True:
         branches = []
-        branch = 0
+        branch = 404
 
-        os.system('cls')
         if customer == 1:
             branches = [1, 2, 3, 4, 9]
             customerName = 'Beltrame'
@@ -99,6 +97,9 @@ while True:
                 branch = int(input('Selecione uma loja: '))
                 if branch == 9:
                     break
+                elif branch == 0:
+                    quit()
+
                 if branch not in branches:
                     os.system('cls')
                     showBranches(customerName)
@@ -108,12 +109,16 @@ while True:
                 # Defining ranges on the table
                 if branch == 1:
                     SAMPLE_RANGE_NAME = 'Beltrame!A5:K23'
+                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A5:G23'
                 elif branch == 2:
                     SAMPLE_RANGE_NAME = 'Beltrame!A25:K41'
+                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A25:G41'
                 elif branch == 3:
                     SAMPLE_RANGE_NAME = 'Beltrame!A43:K72'
+                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A43:G72'
                 elif branch == 4:
                     SAMPLE_RANGE_NAME = 'Beltrame!A74:K90'
+                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A74:G90'
 
         elif customer == 2:
             branches = [1, 9]
@@ -126,6 +131,9 @@ while True:
                 branch = int(input('Selecione uma loja: '))
                 if branch == 9:
                     break
+                elif branch == 0:
+                    quit()
+
                 if branch not in branches:
                     os.system('cls')
                     showBranches(customerName)
@@ -147,6 +155,9 @@ while True:
                 branch = int(input('Selecione uma loja: '))
                 if branch == 9:
                     break
+                elif branch == 0:
+                    quit()
+
                 if branch not in branches:
                     os.system('cls')
                     showBranches(customerName)
@@ -172,6 +183,9 @@ while True:
                 branch = int(input('Selecione uma loja: '))
                 if branch == 9:
                     break
+                elif branch == 0:
+                    quit()
+
                 if branch not in branches:
                     os.system('cls')
                     showBranches(customerName)
@@ -195,6 +209,9 @@ while True:
                 branch = int(input('Selecione uma loja: '))
                 if branch == 9:
                     break
+                elif branch == 0:
+                    quit()
+
                 if branch not in branches:
                     os.system('cls')
                     showBranches(customerName)
@@ -210,39 +227,101 @@ while True:
                     SAMPLE_RANGE_NAME = 'Único!A50:J71'
 
         if branch == 9:
+            os.system('cls')
             break
+        elif branch == 0:
+            quit()
         else:
             values = main(SAMPLE_RANGE_NAME)
 
         # Remove the rows that's not going to be used
         os.system('cls')
-        for i, row in enumerate(values):
-            if not row:  # [] -- empty rows
-                values.pop(i)
-            for register in row:
-                if register == 'Descrição' or 'verificação' in register:  # removing the headers and BD verification row
-                    values.pop(i)
-                else:
-                    continue
+        values = cleaningData(values)
 
         # Printing which branch is being showed and popping it after
-        for i, row in enumerate(values):
-            if 'Loja' in row[0]:
-                branchName = row[0]
-                print(branchName.upper())
-                values.pop(i)
+        option = 404
+        branchName = ''
+        values = showBranch(option, values)
 
-            # Shows the info based on the new 'values' list
+        # Shows the info based on the new 'values' list
+        while True:
+            if control == 99:  # Verifying if the program already passed for VIEW MORE and resetting the data collection
+                values = main(SAMPLE_RANGE_NAME)
+                values = cleaningData(values)
+                values = showBranch(option, values)
+
             displayCompInfo(values, customerName)
 
-            exitChoice = input('\nFiltro encerrado. Selecione uma opção:\n9.VOLTAR\n0.SAIR\nOpção: ')
+            # Menu -- view more details / back to showBranches() / exit
+            options = [1]
 
-            while exitChoice != '9' and exitChoice != '0':
-                if exitChoice not in ['9', '0']:
-                    exitChoice = input('\nOpção inválida. Selecione uma opção:\n9.VOLTAR\n0.SAIR\nOpção: ')
+            while option not in options:
+                option = int(
+                    input('\nFiltro encerrado. Selecione uma opção:\n1.DETALHES\n9.VOLTAR\n0.SAIR\nOpção: '))
+                if option == 9:
+                    break
+                elif option == 0:
+                    quit()
 
-            if exitChoice == '9':
-                # os.system('cls')
+                if option not in options:
+                    os.system('cls')
+                    option = int(input('\nOpção inválida. Selecione uma '
+                                       'opção:\n1.DETALHES\n9.VOLTAR\n0.SAIR\nOpção: '))
+                    continue
+
+            if option == 9:
                 break
-            elif exitChoice == '0':
+            elif option == 0:
                 quit()
+
+            # Option 1 - View more details
+            if option == 1:
+                compTypes = ['c', 'v', 'p', '9', '0']
+                compType = ''
+                concentratorOptions = [1]
+                concentratorOption = 404
+
+                os.system('cls')
+                while compType not in compTypes:
+                    showCompTypes(branchName)
+                    compType = input('Selecione uma opção: ')
+                    if compType not in compTypes:
+                        os.system('cls')
+                        showCompTypes(branchName)
+                        print('Erro. Selecione uma opção válida!\n')
+                        continue
+
+                    # Selecting a computer type
+                    if compType == 'c':
+                        concRow = []
+                        valuesS = main(SAMPLE_RANGE_NAME)
+                        valuesH = main(HARDWARE_RANGE_NAME)
+
+                        os.system('cls')
+                        header(f'> CONCENTRADOR - {branchName} <\n')
+                        for indexS, rowS in enumerate(valuesS):
+                            if 'concentrador' in rowS[0].lower():
+                                concRow = rowS
+                                print(concRow)
+                        showConcOptions()
+                        while concentratorOption not in concentratorOptions:
+                            concentratorOption = int(input('Selecione uma opção: '))
+                            if concentratorOption == 9:
+                                compType = ''
+                                os.system('cls')
+                                break
+                            elif concentratorOption == 0:
+                                quit()
+                            if concentratorOption not in concentratorOptions:
+                                os.system('cls')
+                                showConcOptions()
+                                print('Erro. Selecione uma opção válida!\n')
+                                continue
+
+                if compType == '9':
+                    if concentratorOption == 9:
+                        control = 99
+                    option = 0
+                    continue
+                elif compType == '0':
+                    quit()
