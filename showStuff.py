@@ -69,7 +69,6 @@ def showBranches(customer):
 
 
 def showBranch(option, values):
-
     for i, row in enumerate(values):
         if option == 9:
             break
@@ -83,18 +82,18 @@ def showBranch(option, values):
     return values
 
 
+def showCompOptions():
+    print('-----------------------\n'
+          '1.DETALHES\n'
+          '9.VOLTAR\n'
+          '0.SAIR\n')
+
+
 def showCompTypes(branchName):
     header(f'> TIPO DE COMPUTADOR - {branchName} <\n')
     print('1.Concentrador\n'
           '2.Vasilhame\n'
           '3.Pdv\n'
-          '-----------------------\n'
-          '9.VOLTAR\n'
-          '0.SAIR\n')
-
-
-def showConcOptions():
-    print('\nC.Editar\n'
           '-----------------------\n'
           '9.VOLTAR\n'
           '0.SAIR\n')
@@ -124,6 +123,16 @@ def showCompData(infoName,
                     'Tamanho BD:', infoBDSize, '\n  '
                     'Data Limp. BD:', infoBDCleanDate, '\n  '
                     'Data Últ. Manutenção:', infoMaintenanceDate)
+
+
+def showAddCompData(infoProcessor,
+                    infoMemory,
+                    infoStorage,
+                    infoOperationalSystem):
+    print('  Processador:', infoProcessor, '\n  '
+          'Memória:', infoMemory, '\n  '
+          'Armazenamento:', infoStorage, '\n  '
+          'Sistema Operacional:', infoOperationalSystem)
 
 
 def displayCompInfo(finalValues, customerName):
@@ -156,20 +165,42 @@ def displayCompInfo(finalValues, customerName):
                      infoMaintenanceDate=maintenanceDate)
 
 
-def showAddCompData(infoProcessor,
-                    infoMemory,
-                    infoStorage,
-                    infoOperationalSystem):
-    print('  Processador:', infoProcessor, '\n  '
-          'Memória:', infoMemory, '\n  '
-          'Armazenamento:', infoStorage, '\n  '
-          'Sistema Operacional:', infoOperationalSystem)
+def showPdvs(pdValues, branchName):
+    pdvList = []
+    ipList = []
+    header(f'> PDVs - {branchName} <\n')
+    for pdvRow in pdValues:
+        if 'pdv' in pdvRow[0].lower():
+            pdvList.append(int((pdvRow[0])[4:6]))
+            ipList.append(pdvRow[1])
+
+    print(f'Os PDVs disponíveis são:\n')
+
+    for i, pdv in enumerate(pdvList):
+        if ipList[i] == '-':
+            print(pdv, '-', 'N/A')
+        else:
+            print(pdv, '-', ipList[i])
+
+    return pdvList
 
 
-def displayCompInfoByType(compValues, compAddValues, customerName, compType):
+def displayCompInfoByType(compValues, compAddValues, customerName, compType, *pdv):
+    count = 0
+    control = 0
+    strCompType = ''
+
+    if compType == 1:
+        strCompType = 'CONCENTRADOR'
+    elif compType == 2:
+        strCompType = 'VASILHAME'
+    elif compType == 3:
+        strCompType = 'PDV'
+
     for i, row in enumerate(compValues):
         if compType == 1:  # Type = Concentrador
             if 'concentrador' in row[0].lower():
+                count += 1
                 (name,
                  ip,
                  currentVersion,
@@ -208,3 +239,105 @@ def displayCompInfoByType(compValues, compAddValues, customerName, compType):
                                 infoMemory=memory,
                                 infoStorage=storage,
                                 infoOperationalSystem=operationalSystem)
+
+        elif compType == 2:  # Type = Vasilhame:
+            if 'vasilhame' in row[0].lower():
+                count += 1
+                (name,
+                 ip,
+                 currentVersion,
+                 oldVersion,
+                 updateDate,
+                 clisitefVersion,
+                 jarDate,
+                 vpnDate,
+                 routeDate,
+                 bdSize,
+                 bdCleanDate,
+                 maintenanceDate) = getCompData(row, customerName)
+
+                compAddRow = compAddValues[i]
+                (name_add,
+                 ip_add,
+                 processor,
+                 memory,
+                 storage,
+                 operationalSystem) = getAddCompData(compAddRow)
+
+                print('---------------------------')
+                showCompData(infoName=name,
+                             infoIP=ip,
+                             infoCurrentVersion=currentVersion,
+                             infoOldVersion=oldVersion,
+                             infoUpdateDate=updateDate,
+                             infoClisitefVersion=clisitefVersion,
+                             infoJarDate=jarDate,
+                             infoVPNDate=vpnDate,
+                             infoRouteDate=routeDate,
+                             infoBDSize=bdSize,
+                             infoBDCleanDate=bdCleanDate,
+                             infoMaintenanceDate=maintenanceDate, )
+                showAddCompData(infoProcessor=processor,
+                                infoMemory=memory,
+                                infoStorage=storage,
+                                infoOperationalSystem=operationalSystem)
+
+        elif compType == 3:  # Type = PDV:
+            if control == 0:
+                pdv = pdv[0]
+            if control == 0 and len(pdv) == 1:
+                pdv = '0'+pdv
+
+            if f'pdv {pdv}' in row[0].lower():
+                count += 1
+                (name,
+                 ip,
+                 currentVersion,
+                 oldVersion,
+                 updateDate,
+                 clisitefVersion,
+                 jarDate,
+                 vpnDate,
+                 routeDate,
+                 bdSize,
+                 bdCleanDate,
+                 maintenanceDate) = getCompData(row, customerName)
+
+                compAddRow = compAddValues[i]
+                (name_add,
+                 ip_add,
+                 processor,
+                 memory,
+                 storage,
+                 operationalSystem) = getAddCompData(compAddRow)
+
+                print('---------------------------')
+                showCompData(infoName=name,
+                             infoIP=ip,
+                             infoCurrentVersion=currentVersion,
+                             infoOldVersion=oldVersion,
+                             infoUpdateDate=updateDate,
+                             infoClisitefVersion=clisitefVersion,
+                             infoJarDate=jarDate,
+                             infoVPNDate=vpnDate,
+                             infoRouteDate=routeDate,
+                             infoBDSize=bdSize,
+                             infoBDCleanDate=bdCleanDate,
+                             infoMaintenanceDate=maintenanceDate, )
+                showAddCompData(infoProcessor=processor,
+                                infoMemory=memory,
+                                infoStorage=storage,
+                                infoOperationalSystem=operationalSystem)
+            control += 1
+
+        else:
+            print('FALHA CATASTRÓFICA!\nO tipo de computador selecionado não existe.')
+
+    if count == 0:
+        print(f'ERRO:\nNão existe registro de {strCompType} para a loja selecionada.')
+
+
+def showCompByTypeOptions():
+    print('\n-----------------------\n'
+          '9.VOLTAR\n'
+          '0.SAIR\n')

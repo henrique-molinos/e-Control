@@ -79,7 +79,7 @@ while True:
         if customer not in customers:
             os.system('cls')
             showCustomers()
-            print('Erro. Informe o código de um cliente válido!\n')
+            print('> Erro. Informe o código de um cliente válido!\n')
             continue
 
     # Branch selection screen
@@ -103,7 +103,7 @@ while True:
                 if branch not in branches:
                     os.system('cls')
                     showBranches(customerName)
-                    print('Erro. Informe o código de uma loja válida!\n')
+                    print('> Erro. Informe o código de uma loja válida!\n')
                     continue
 
                 # Defining ranges on the table
@@ -140,7 +140,7 @@ while True:
                 if branch not in branches:
                     os.system('cls')
                     showBranches(customerName)
-                    print('Erro. Informe o código de uma loja válida!\n')
+                    print('> Erro. Informe o código de uma loja válida!\n')
                     continue
 
                 # Defining ranges on the table
@@ -164,7 +164,7 @@ while True:
                 if branch not in branches:
                     os.system('cls')
                     showBranches(customerName)
-                    print('Erro. Informe o código de uma loja válida!\n')
+                    print('> Erro. Informe o código de uma loja válida!\n')
                     continue
 
                 # Defining ranges on the table
@@ -192,7 +192,7 @@ while True:
                 if branch not in branches:
                     os.system('cls')
                     showBranches(customerName)
-                    print('Erro. Informe o código de uma loja válida!\n')
+                    print('> Erro. Informe o código de uma loja válida!\n')
                     continue
 
                 # Defining ranges on the table
@@ -220,7 +220,7 @@ while True:
                 if branch not in branches:
                     os.system('cls')
                     showBranches(customerName)
-                    print('Erro. Informe o código de uma loja válida!\n')
+                    print('> Erro. Informe o código de uma loja válida!\n')
                     continue
 
                 # Defining ranges on the table
@@ -253,28 +253,28 @@ while True:
         # Shows the info based on the new 'values' list
         while True:
             # Verifying if the program already passed for VIEW MORE and resetting the data collection
-            if control == 99:
+            if control == 999:
                 values = main(SAMPLE_RANGE_NAME)
                 values = cleaningData(values)
                 values, branchName = showBranch(option, values)  # END of verification and reset
 
             displayCompInfo(values, customerName)
 
-            # Menu -- view more details / back to showBranches() / exit
+            # Menu -- view details / back to showBranches() / exit
             options = [1]
 
             while option not in options:
-                option = int(
-                    input('\nFiltro encerrado. Selecione uma opção:\n1.DETALHES\n9.VOLTAR\n0.SAIR\nOpção: '))
+                print('\n> Filtro encerrado.')
+                showCompOptions()
+                option = int(input('Selecione uma opção: '))
                 if option == 9:
                     break
                 elif option == 0:
                     quit()
-
                 if option not in options:
                     os.system('cls')
-                    option = int(input('\nOpção inválida. Selecione uma '
-                                       'opção:\n1.DETALHES\n9.VOLTAR\n0.SAIR\nOpção: '))
+                    header(f'> SELEÇÃO DE OPÇÕES - {branchName} <\n')
+                    print('> Erro. Selecione uma opção válida!')
                     continue
 
             if option == 9:
@@ -286,28 +286,28 @@ while True:
             if option == 1:
                 compTypes = [1, 2, 3, 9, 0]  # 1.Concentrador/2.Vasilhame/3.Pdv
                 compType = 404
-                concentratorOptions = [1]
-                concentratorOption = 404
+                computerOptions = [1]
+                computerOption = 404
 
                 os.system('cls')
                 showCompTypes(branchName)
                 while compType not in compTypes:
                     # Verifying if the program already passed for VIEW MORE and resetting the data collection
-                    if control == 99:
+                    if control in [99, 999]:
                         os.system('cls')
                         showCompTypes(branchName)
                         compType = int(input('Selecione uma opção: '))  # END of verification
                         if compType not in compTypes:
                             os.system('cls')
                             showCompTypes(branchName)
-                            print('Erro. Selecione uma opção válida!\n')
+                            print('> Erro. Selecione uma opção válida!\n')
                             continue
                     else:
                         compType = int(input('Selecione uma opção: '))
                         if compType not in compTypes:
                             os.system('cls')
                             showCompTypes(branchName)
-                            print('Erro. Selecione uma opção válida!\n')
+                            print('> Erro. Selecione uma opção válida!\n')
                             continue
 
                     # Selecting a computer type
@@ -319,34 +319,132 @@ while True:
 
                         addValues = main(HARDWARE_RANGE_NAME)
                         addValues = cleaningData(addValues)
-                        addValues, branchName = showBranch(option, addValues)
+                        addValues, addBranchName = showBranch(option, addValues)
 
                         os.system('cls')
                         header(f'> CONCENTRADOR - {branchName} <\n')
                         displayCompInfoByType(compValues, addValues, customerName, compType)
 
-                        # Menu after showing details of concentrator
-                        showConcOptions()
-                        while concentratorOption not in concentratorOptions:
-                            concentratorOption = int(input('Selecione uma opção: '))
+                        # Menu after showing details
+                        showCompByTypeOptions()
+                        while computerOption not in computerOptions:
+                            computerOption = int(input('Selecione uma opção: '))
                             # Option 9 - back
-                            if concentratorOption == 9:
-                                compType = 404
-                                control = 99
+                            if computerOption == 9:
+                                compType = 99
+                                control = 999
                                 os.system('cls')
                                 break
                             # Option 0 - quit
-                            elif concentratorOption == 0:
+                            elif computerOption == 0:
                                 quit()
-                            if concentratorOption not in concentratorOptions:
+                            if computerOption not in computerOptions:
                                 os.system('cls')
-                                showConcOptions()
-                                print('Erro. Selecione uma opção válida!\n')
+                                showCompByTypeOptions()
+                                print('> Erro. Selecione uma opção válida!\n')
                                 continue
 
+                    # Vasilhame
+                    elif compType == 2:
+                        compValues = main(SAMPLE_RANGE_NAME)
+                        compValues = cleaningData(compValues)
+                        compValues, addBranchName = showBranch(option, compValues)
+
+                        addValues = main(HARDWARE_RANGE_NAME)
+                        addValues = cleaningData(addValues)
+                        addValues, branchName = showBranch(option, addValues)
+
+                        os.system('cls')
+                        header(f'> VASILHAME - {branchName} <\n')
+                        displayCompInfoByType(compValues, addValues, customerName, compType)
+
+                        # Menu after showing details
+                        showCompByTypeOptions()
+                        while computerOption not in computerOptions:
+                            computerOption = int(input('Selecione uma opção: '))
+                            # Option 9 - back
+                            if computerOption == 9:
+                                compType = 99
+                                control = 999
+                                os.system('cls')
+                                break
+                            # Option 0 - quit
+                            elif computerOption == 0:
+                                quit()
+                            if computerOption not in computerOptions:
+                                os.system('cls')
+                                showCompByTypeOptions()
+                                print('> Erro. Selecione uma opção válida!\n')
+                                continue
+
+                    # PDV
+                    elif compType == 3:
+                        while True:
+                            pdv = 404
+                            pdvOptions = [9, 0]
+                            pdvOption = 404
+
+                            compValues = main(SAMPLE_RANGE_NAME)
+                            compValues = cleaningData(compValues)
+                            compValues, addBranchName = showBranch(option, compValues)
+
+                            addValues = main(HARDWARE_RANGE_NAME)
+                            addValues = cleaningData(addValues)
+                            addValues, branchName = showBranch(option, addValues)
+
+                            os.system('cls')
+                            pdvs = showPdvs(compValues, branchName)
+                            while pdv not in pdvs:
+                                print('\n---------------------------\n'
+                                      '99.VOLTAR\n'
+                                      '00.SAIR\n')
+                                pdv = int(input('\nSelecione um PDV: '))
+                                if pdv == 99:
+                                    compType = 99
+                                    control = 99
+                                    os.system('cls')
+                                    break
+                                elif pdv == 00:
+                                    quit()
+                                if pdv not in pdvs:
+                                    os.system('cls')
+                                    pdvs = showPdvs(compValues, branchName)
+                                    print('\n> Erro. Selecione um PDV válido!')
+
+                            if control == 99:
+                                os.system('cls')
+                                break
+
+                            pdv = str(pdv)
+                            os.system('cls')
+                            header(f'> PONTO DE VENDA - {branchName} <\n')
+                            displayCompInfoByType(compValues, addValues, customerName, compType, pdv)
+
+                            # Menu after showing details
+                            showCompByTypeOptions()
+                            while pdvOption not in pdvOptions:
+                                pdvOption = int(input('Selecione uma opção: '))
+                                # Option 9 - back
+                                if pdvOption == 9:
+                                    control = 999
+                                    os.system('cls')
+                                    break
+                                # Option 0 - quit
+                                elif pdvOption == 0:
+                                    quit()
+                                if pdvOption not in pdvOptions:
+                                    os.system('cls')
+                                    header(f'> PONTO DE VENDA - {branchName} <\n')
+                                    displayCompInfoByType(compValues, addValues, customerName, compType, pdv)
+                                    showCompByTypeOptions()
+                                    print('> Erro. Selecione uma opção válida!\n')
+                                    continue
+
                 if compType == 9:
-                    if concentratorOption == 9:
-                        control = 99
+                    if computerOption == 9:
+                        control = 999
+                    if control == 99:
+                        control = 999
                     option = 0
                     continue
                 elif compType == 0:
