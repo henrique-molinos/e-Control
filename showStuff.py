@@ -1,11 +1,11 @@
 from data import *
 
 
-def header(screen=''):
+def header(screen):
     word = 'e-Control'
-    print('X' * (len(word) * 3 + 2))
-    print('X' * len(word) + ' ' + word + ' ' + 'X' * len(word))
-    print('X' * (len(word) * 3 + 2))
+    print('X' * (len(word) * 5 + 2))
+    print('X' * (len(word) * 2) + ' ' + word + ' ' + 'X' * (len(word) * 2))
+    print('X' * (len(word) * 5 + 2))
     print('\n' + screen)
 
 
@@ -69,6 +69,7 @@ def showBranches(customer):
 
 
 def showBranch(option, values):
+
     for i, row in enumerate(values):
         if option == 9:
             break
@@ -77,15 +78,16 @@ def showBranch(option, values):
             branchName = row[0]
             print(branchName.upper())
             values.pop(i)
+            return values, branchName
 
     return values
 
 
 def showCompTypes(branchName):
     header(f'> TIPO DE COMPUTADOR - {branchName} <\n')
-    print('(C).Concentrador\n'
-          'V -> Vasilhame (Se houver)\n'
-          'P.Pdv\n'
+    print('1.Concentrador\n'
+          '2.Vasilhame\n'
+          '3.Pdv\n'
           '-----------------------\n'
           '9.VOLTAR\n'
           '0.SAIR\n')
@@ -166,7 +168,7 @@ def showAddCompData(infoProcessor,
 
 def displayCompInfoByType(compValues, compAddValues, customerName, compType):
     for i, row in enumerate(compValues):
-        if compType == 'c':
+        if compType == 1:  # Type = Concentrador
             if 'concentrador' in row[0].lower():
                 (name,
                  ip,

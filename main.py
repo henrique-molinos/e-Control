@@ -248,15 +248,15 @@ while True:
 
         # Printing which branch is being showed and popping it after
         option = 404
-        branchName = ''
-        values = showBranch(option, values)
+        values, branchName = showBranch(option, values)
 
         # Shows the info based on the new 'values' list
         while True:
-            if control == 99:  # Verifying if the program already passed for VIEW MORE and resetting the data collection
+            # Verifying if the program already passed for VIEW MORE and resetting the data collection
+            if control == 99:
                 values = main(SAMPLE_RANGE_NAME)
                 values = cleaningData(values)
-                values = showBranch(option, values)
+                values, branchName = showBranch(option, values)  # END of verification and reset
 
             displayCompInfo(values, customerName)
 
@@ -282,44 +282,60 @@ while True:
             elif option == 0:
                 quit()
 
-            # Option 1 - View more details
+            # Option 1 - View details based on computer type
             if option == 1:
-                compTypes = ['c', 'v', 'p', '9', '0']
-                compType = ''
+                compTypes = [1, 2, 3, 9, 0]  # 1.Concentrador/2.Vasilhame/3.Pdv
+                compType = 404
                 concentratorOptions = [1]
                 concentratorOption = 404
 
                 os.system('cls')
+                showCompTypes(branchName)
                 while compType not in compTypes:
-                    showCompTypes(branchName)
-                    compType = input('Selecione uma opção: ')
-                    if compType not in compTypes:
+                    # Verifying if the program already passed for VIEW MORE and resetting the data collection
+                    if control == 99:
                         os.system('cls')
                         showCompTypes(branchName)
-                        print('Erro. Selecione uma opção válida!\n')
-                        continue
+                        compType = int(input('Selecione uma opção: '))  # END of verification
+                        if compType not in compTypes:
+                            os.system('cls')
+                            showCompTypes(branchName)
+                            print('Erro. Selecione uma opção válida!\n')
+                            continue
+                    else:
+                        compType = int(input('Selecione uma opção: '))
+                        if compType not in compTypes:
+                            os.system('cls')
+                            showCompTypes(branchName)
+                            print('Erro. Selecione uma opção válida!\n')
+                            continue
 
                     # Selecting a computer type
-                    if compType == 'c':
+                    # Concentrador
+                    if compType == 1:
                         compValues = main(SAMPLE_RANGE_NAME)
                         compValues = cleaningData(compValues)
-                        compValues = showBranch(option, compValues)
+                        compValues, branchName = showBranch(option, compValues)
 
                         addValues = main(HARDWARE_RANGE_NAME)
                         addValues = cleaningData(addValues)
-                        addValues = showBranch(option, addValues)
+                        addValues, branchName = showBranch(option, addValues)
 
                         os.system('cls')
                         header(f'> CONCENTRADOR - {branchName} <\n')
                         displayCompInfoByType(compValues, addValues, customerName, compType)
 
+                        # Menu after showing details of concentrator
                         showConcOptions()
                         while concentratorOption not in concentratorOptions:
                             concentratorOption = int(input('Selecione uma opção: '))
+                            # Option 9 - back
                             if concentratorOption == 9:
-                                compType = ''
+                                compType = 404
+                                control = 99
                                 os.system('cls')
                                 break
+                            # Option 0 - quit
                             elif concentratorOption == 0:
                                 quit()
                             if concentratorOption not in concentratorOptions:
@@ -328,10 +344,10 @@ while True:
                                 print('Erro. Selecione uma opção válida!\n')
                                 continue
 
-                if compType == '9':
+                if compType == 9:
                     if concentratorOption == 9:
                         control = 99
                     option = 0
                     continue
-                elif compType == '0':
+                elif compType == 0:
                     quit()
