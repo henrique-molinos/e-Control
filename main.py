@@ -18,8 +18,8 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # The ID and range of a sample spreadsheet.
 SAMPLE_SPREADSHEET_ID = '1zxWiR0S2ZGTkLAlipqbuODsazF6YHTkNs0b7YVnFXfo'
-SAMPLE_RANGE_NAME = 'Beltrame!A5:K90'
-HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A5:G90'
+SAMPLE_RANGE_NAME = 'Beltrame!A5:K117'
+HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A5:F117'
 
 
 def main(sample_range_name):
@@ -88,7 +88,7 @@ while True:
         branch = 404
 
         if customer == 1:
-            branches = [1, 2, 3, 4, 9]
+            branches = [1, 2, 3, 4, 5, 9]
             customerName = 'Beltrame'
 
             os.system('cls')
@@ -109,16 +109,19 @@ while True:
                 # Defining ranges on the table
                 if branch == 1:
                     SAMPLE_RANGE_NAME = 'Beltrame!A5:K23'
-                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A5:G23'
+                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A5:F23'
                 elif branch == 2:
                     SAMPLE_RANGE_NAME = 'Beltrame!A25:K41'
-                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A25:G41'
+                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A25:F41'
                 elif branch == 3:
                     SAMPLE_RANGE_NAME = 'Beltrame!A43:K72'
-                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A43:G72'
+                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A43:F72'
                 elif branch == 4:
                     SAMPLE_RANGE_NAME = 'Beltrame!A74:K90'
-                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A74:G90'
+                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A74:F90'
+                elif branch == 5:
+                    SAMPLE_RANGE_NAME = 'Beltrame!A92:K117'
+                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A92:F117'
 
         elif customer == 2:
             branches = [1, 9]
@@ -195,8 +198,10 @@ while True:
                 # Defining ranges on the table
                 if branch == 1:
                     SAMPLE_RANGE_NAME = 'Pazini!A5:K14'
+                    HARDWARE_RANGE_NAME = 'Pazini_Hardware!A5:F14'
                 elif branch == 2:
                     SAMPLE_RANGE_NAME = 'Pazini!A16:K25'
+                    HARDWARE_RANGE_NAME = 'Pazini_Hardware!A16:F25'
 
         elif customer == 5:
             branches = [1, 2, 3, 9]
@@ -221,10 +226,13 @@ while True:
                 # Defining ranges on the table
                 if branch == 1:
                     SAMPLE_RANGE_NAME = 'Único!A5:J29'
+                    HARDWARE_RANGE_NAME = 'Único_Hardware!A5:F29'
                 elif branch == 2:
                     SAMPLE_RANGE_NAME = 'Único!A31:J48'
+                    HARDWARE_RANGE_NAME = 'Único_Hardware!A31:F48'
                 elif branch == 3:
                     SAMPLE_RANGE_NAME = 'Único!A50:J71'
+                    HARDWARE_RANGE_NAME = 'Único_Hardware!A50:F71'
 
         if branch == 9:
             os.system('cls')
@@ -293,16 +301,18 @@ while True:
 
                     # Selecting a computer type
                     if compType == 'c':
-                        concRow = []
-                        valuesS = main(SAMPLE_RANGE_NAME)
-                        valuesH = main(HARDWARE_RANGE_NAME)
+                        compValues = main(SAMPLE_RANGE_NAME)
+                        compValues = cleaningData(compValues)
+                        compValues = showBranch(option, compValues)
+
+                        addValues = main(HARDWARE_RANGE_NAME)
+                        addValues = cleaningData(addValues)
+                        addValues = showBranch(option, addValues)
 
                         os.system('cls')
                         header(f'> CONCENTRADOR - {branchName} <\n')
-                        for indexS, rowS in enumerate(valuesS):
-                            if 'concentrador' in rowS[0].lower():
-                                concRow = rowS
-                                print(concRow)
+                        displayCompInfoByType(compValues, addValues, customerName, compType)
+
                         showConcOptions()
                         while concentratorOption not in concentratorOptions:
                             concentratorOption = int(input('Selecione uma opção: '))

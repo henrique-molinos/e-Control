@@ -313,15 +313,6 @@ while True:
                         header(f'> CONCENTRADOR - {branchName} <\n')
                         displayCompInfoByType(compValues, addValues, customerName, compType)
 
-                        # for indexS, rowS in enumerate(valuesS):
-                        #     if 'concentrador' in rowS[0].lower():
-                        #         indexConc = valuesS[indexS]
-                        #
-                        #         concAddRow = valuesH[indexS]
-                        #         print(concAddRow)
-                        #
-                        #         displayCompInfo(concRow, customerName)
-
                         showConcOptions()
                         while concentratorOption not in concentratorOptions:
                             concentratorOption = int(input('Selecione uma opção: '))
