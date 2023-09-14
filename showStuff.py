@@ -86,7 +86,7 @@ def showCompOptions():
     print('-----------------------\n'
           '1.DETALHES\n'
           '9.VOLTAR\n'
-          '0.SAIR\n')
+          '0.INÍCIO\n')
 
 
 def showCompTypes(branchName):
@@ -96,7 +96,7 @@ def showCompTypes(branchName):
           '3.Pdv\n'
           '-----------------------\n'
           '9.VOLTAR\n'
-          '0.SAIR\n')
+          '0.INÍCIO\n')
 
 
 def showCompData(infoName,
@@ -336,8 +336,21 @@ def displayCompInfoByType(compValues, compAddValues, customerName, compType, *pd
     if count == 0:
         print(f'ERRO:\nNão existe registro de {strCompType} para a loja selecionada.')
 
+    return count
 
-def showCompByTypeOptions():
-    print('\n-----------------------\n'
-          '9.VOLTAR\n'
-          '0.SAIR\n')
+
+def showCompByTypeOptions(compType, *countTuple):
+    if compType == 2:
+        count = countTuple[0]
+        if count == 0:
+            print('\n-----------------------\n'
+                  '9.VOLTAR\n'
+                  '0.SELEÇÃO DE LOJA\n')
+        else:
+            print('\n-----------------------\n'
+                  '9.VOLTAR\n'
+                  '0.INÍCIO\n')
+    else:
+        print('\n-----------------------\n'
+              '9.VOLTAR\n'
+              '0.INÍCIO\n')

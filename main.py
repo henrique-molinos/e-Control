@@ -17,7 +17,7 @@ from showStuff import *
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # The ID and range of a sample spreadsheet.
-SAMPLE_SPREADSHEET_ID = '1zxWiR0S2ZGTkLAlipqbuODsazF6YHTkNs0b7YVnFXfo'
+SAMPLE_SPREADSHEET_ID = '1Jj74J-d-AYBZjFhk5F0eppoDiKJB3uBx7AugB_lpG3w'
 SAMPLE_RANGE_NAME = 'Beltrame!A5:K117'
 HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A5:F117'
 
@@ -71,7 +71,12 @@ while True:
     customer = 404
     customerName = ''
 
-    showCustomers()
+    if control == 0:
+        os.system('cls')
+        showCustomers()
+    else:
+        showCustomers()
+
     while customer not in customers:
         customer = int(input('Selecione um cliente: '))
         if customer == 0:
@@ -84,6 +89,11 @@ while True:
 
     # Branch selection screen
     while True:
+
+        if control == 9:
+            control = 0
+            break
+
         branches = []
         branch = 404
 
@@ -270,7 +280,8 @@ while True:
                 if option == 9:
                     break
                 elif option == 0:
-                    quit()
+                    control = 9
+                    break
                 if option not in options:
                     os.system('cls')
                     header(f'> SELEÇÃO DE OPÇÕES - {branchName} <\n')
@@ -280,7 +291,8 @@ while True:
             if option == 9:
                 break
             elif option == 0:
-                quit()
+                control = 9
+                break
 
             # Option 1 - View details based on computer type
             if option == 1:
@@ -326,7 +338,7 @@ while True:
                         displayCompInfoByType(compValues, addValues, customerName, compType)
 
                         # Menu after showing details
-                        showCompByTypeOptions()
+                        showCompByTypeOptions(compType)
                         while computerOption not in computerOptions:
                             computerOption = int(input('Selecione uma opção: '))
                             # Option 9 - back
@@ -337,10 +349,12 @@ while True:
                                 break
                             # Option 0 - quit
                             elif computerOption == 0:
-                                quit()
+                                compType = 0
+                                control = 9
+                                break
                             if computerOption not in computerOptions:
                                 os.system('cls')
-                                showCompByTypeOptions()
+                                showCompByTypeOptions(compType)
                                 print('> Erro. Selecione uma opção válida!\n')
                                 continue
 
@@ -356,10 +370,10 @@ while True:
 
                         os.system('cls')
                         header(f'> VASILHAME - {branchName} <\n')
-                        displayCompInfoByType(compValues, addValues, customerName, compType)
+                        count = displayCompInfoByType(compValues, addValues, customerName, compType)
 
                         # Menu after showing details
-                        showCompByTypeOptions()
+                        showCompByTypeOptions(compType, count)
                         while computerOption not in computerOptions:
                             computerOption = int(input('Selecione uma opção: '))
                             # Option 9 - back
@@ -368,18 +382,27 @@ while True:
                                 control = 999
                                 os.system('cls')
                                 break
-                            # Option 0 - quit
+                            # Option 0 - branch or home -- depends on the count return
                             elif computerOption == 0:
-                                quit()
+                                compType = 0
+                                if count == 0:
+                                    control = 0
+                                else:
+                                    control = 9
+                                break
                             if computerOption not in computerOptions:
                                 os.system('cls')
-                                showCompByTypeOptions()
+                                showCompByTypeOptions(compType, count)
                                 print('> Erro. Selecione uma opção válida!\n')
                                 continue
 
                     # PDV
                     elif compType == 3:
                         while True:
+
+                            if control == 9:
+                                break
+
                             pdv = 404
                             pdvOptions = [9, 0]
                             pdvOption = 404
@@ -397,21 +420,23 @@ while True:
                             while pdv not in pdvs:
                                 print('\n---------------------------\n'
                                       '99.VOLTAR\n'
-                                      '00.SAIR\n')
+                                      '0.INÍCIO\n')
                                 pdv = int(input('\nSelecione um PDV: '))
                                 if pdv == 99:
                                     compType = 99
                                     control = 99
                                     os.system('cls')
                                     break
-                                elif pdv == 00:
-                                    quit()
+                                elif pdv == 0:
+                                    control = 9
+                                    compType = 0
+                                    break
                                 if pdv not in pdvs:
                                     os.system('cls')
                                     pdvs = showPdvs(compValues, branchName)
                                     print('\n> Erro. Selecione um PDV válido!')
 
-                            if control == 99:
+                            if control in [9, 99]:
                                 os.system('cls')
                                 break
 
@@ -421,7 +446,7 @@ while True:
                             displayCompInfoByType(compValues, addValues, customerName, compType, pdv)
 
                             # Menu after showing details
-                            showCompByTypeOptions()
+                            showCompByTypeOptions(compType)
                             while pdvOption not in pdvOptions:
                                 pdvOption = int(input('Selecione uma opção: '))
                                 # Option 9 - back
@@ -429,14 +454,16 @@ while True:
                                     control = 999
                                     os.system('cls')
                                     break
-                                # Option 0 - quit
+                                # Option 0 - home
                                 elif pdvOption == 0:
-                                    quit()
+                                    control = 9
+                                    compType = 0
+                                    break
                                 if pdvOption not in pdvOptions:
                                     os.system('cls')
                                     header(f'> PONTO DE VENDA - {branchName} <\n')
                                     displayCompInfoByType(compValues, addValues, customerName, compType, pdv)
-                                    showCompByTypeOptions()
+                                    showCompByTypeOptions(compType)
                                     print('> Erro. Selecione uma opção válida!\n')
                                     continue
 
@@ -448,4 +475,5 @@ while True:
                     option = 0
                     continue
                 elif compType == 0:
-                    quit()
+                    control = 9
+                    break
