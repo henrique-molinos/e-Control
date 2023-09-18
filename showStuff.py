@@ -101,68 +101,82 @@ def showCompTypes(branchName):
 
 def showCompData(infoName,
                  infoIP,
-                 infoCurrentVersion,
-                 infoOldVersion,
-                 infoUpdateDate,
+                 infoEconectVersion,
                  infoClisitefVersion,
-                 infoJarDate,
-                 infoVPNDate,
-                 infoRouteDate,
-                 infoBDSize,
-                 infoBDCleanDate,
-                 infoMaintenanceDate):
+                 infoJarReason):
     print(infoName, '\n  '
                     'IP:', infoIP, '\n  '
-                    'Versão Atual:', infoCurrentVersion, '\n  '
-                    'Versão Antiga:', infoOldVersion, '\n  '
-                    'Data Atualização:', infoUpdateDate, '\n  '
-                    'Versão CliSiTEF:', infoClisitefVersion, '\n  '
-                    'Data Inst. jar:', infoJarDate, '\n  '
-                    'Data Inst. VPN:', infoVPNDate, '\n  '
-                    'Data Conf. Rota:', infoRouteDate, '\n  '
-                    'Tamanho BD:', infoBDSize, '\n  '
-                    'Data Limp. BD:', infoBDCleanDate, '\n  '
-                    'Data Últ. Manutenção:', infoMaintenanceDate)
+                    'Versão Atual:', infoEconectVersion, '\n  '                                                      
+                    'Versão CliSiTEF:', infoClisitefVersion, '\n  '                          
+                    'Motivo Jar:', infoJarReason)
 
 
-def showAddCompData(infoProcessor,
-                    infoMemory,
-                    infoStorage,
-                    infoOperationalSystem):
+def showEconectData(infoName,
+                    infoCurrentVersion,
+                    infoOldVersion,
+                    infoUpdateDate,
+                    infoUpdateAnalist,
+                    infoClisitefVersion,
+                    infoJarReason,
+                    infoJarTicket,
+                    infoJarDate,
+                    infoBDSize,
+                    infoBDCleanDate,
+                    infoBDCleanAnalist):
+    print(infoName, '\n')
+    print('> VERSIONAMENTO <\n'
+          '  Versão Atual:', infoCurrentVersion, '\n  '
+          'Versão Anterior:', infoOldVersion, '\n  '
+          'Data Atualização:', infoUpdateDate, '\n  '
+          'Atualizado por:', infoUpdateAnalist, '\n  ')
+
+    print('> ARQUIVOS DE CORREÇÃO <\n'
+          '  Motivo Jar:', infoJarReason, '\n  '
+          'Ticket Jar:', infoJarTicket, '\n  '
+          'Data Inst. Jar:', infoJarDate, '\n  ')
+
+    print('> CLISITEF <\n'
+          '  Versão CliSiTEF:', infoClisitefVersion, '\n  ')
+
+    print('> BANCO DE DADOS <\n'
+          '  Tamanho BD:', infoBDSize, '\n  '
+          'Data Limpeza BD:', infoBDCleanDate, '\n  '
+          'Analista Limp.:', infoBDCleanAnalist)
+
+
+def showHardwareCompData(infoProcessor,
+                         infoMemory,
+                         infoStorage,
+                         infoOperationalSystem,
+                         infoMaintenanceDescription,
+                         infoMaintenanceDate,
+                         infoMaintenanceResponsible,
+                         infoSerialNumber):
+    print('\n > HARDWARE <')
     print('  Processador:', infoProcessor, '\n  '
           'Memória:', infoMemory, '\n  '
           'Armazenamento:', infoStorage, '\n  '
-          'Sistema Operacional:', infoOperationalSystem)
+          'Sistema Operacional:', infoOperationalSystem, '\n  '
+          'Manutenção:', infoMaintenanceDescription, '\n  '
+          'Data Manutenção:', infoMaintenanceDate, '\n  '
+          'Responsável Manutenção:', infoMaintenanceResponsible, '\n  '                                         
+          'N/S:', infoSerialNumber)
 
 
-def displayCompInfo(finalValues, customerName):
+def displayCompInfo(finalValues):
     for i, row in enumerate(finalValues):
         (name,
          ip,
-         currentVersion,
-         oldVersion,
-         updateDate,
+         econectVersion,
          clisitefVersion,
-         jarDate,
-         vpnDate,
-         routeDate,
-         bdSize,
-         bdCleanDate,
-         maintenanceDate) = getCompData(row, customerName)
+         jarReason) = getCompData(row)
 
         print('---------------------------')
         showCompData(infoName=name,
                      infoIP=ip,
-                     infoCurrentVersion=currentVersion,
-                     infoOldVersion=oldVersion,
-                     infoUpdateDate=updateDate,
+                     infoEconectVersion=econectVersion,
                      infoClisitefVersion=clisitefVersion,
-                     infoJarDate=jarDate,
-                     infoVPNDate=vpnDate,
-                     infoRouteDate=routeDate,
-                     infoBDSize=bdSize,
-                     infoBDCleanDate=bdCleanDate,
-                     infoMaintenanceDate=maintenanceDate)
+                     infoJarReason=jarReason)
 
 
 def showPdvs(pdValues, branchName):
@@ -185,7 +199,7 @@ def showPdvs(pdValues, branchName):
     return pdvList
 
 
-def displayCompInfoByType(compValues, compAddValues, customerName, compType, *pdv):
+def displayCompInfoByType(compValues, econectValues, compHardwareValues, compType, *pdv):
     count = 0
     control = 0
     strCompType = ''
@@ -201,86 +215,108 @@ def displayCompInfoByType(compValues, compAddValues, customerName, compType, *pd
         if compType == 1:  # Type = Concentrador
             if 'concentrador' in row[0].lower():
                 count += 1
-                (name,
-                 ip,
+
+                econectRow = econectValues[i]
+                (name_econect,
                  currentVersion,
                  oldVersion,
                  updateDate,
-                 clisitefVersion,
-                 jarDate,
-                 vpnDate,
-                 routeDate,
-                 bdSize,
-                 bdCleanDate,
-                 maintenanceDate) = getCompData(row, customerName)
+                 updateAnalist,
+                 clisitefVersion_econect,
+                 jarReason_econect,
+                 jarTicket,
+                 jarInstDate,
+                 dbSize,
+                 dbCleanDate,
+                 dbCleanAnalist) = getEconectData(econectRow)
 
-                compAddRow = compAddValues[i]
-                (name_add,
-                 ip_add,
+                compHardwareRow = compHardwareValues[i]
+                (name_hardware,
+                 ip_hardware,
                  processor,
                  memory,
                  storage,
-                 operationalSystem) = getAddCompData(compAddRow)
+                 operationalSystem,
+                 maintenanceDescription,
+                 maintenanceDate,
+                 maintenanceResp,
+                 serialNumber) = getHardwareCompData(compHardwareRow)
 
                 print('---------------------------')
-                showCompData(infoName=name,
-                             infoIP=ip,
-                             infoCurrentVersion=currentVersion,
-                             infoOldVersion=oldVersion,
-                             infoUpdateDate=updateDate,
-                             infoClisitefVersion=clisitefVersion,
-                             infoJarDate=jarDate,
-                             infoVPNDate=vpnDate,
-                             infoRouteDate=routeDate,
-                             infoBDSize=bdSize,
-                             infoBDCleanDate=bdCleanDate,
-                             infoMaintenanceDate=maintenanceDate, )
-                showAddCompData(infoProcessor=processor,
-                                infoMemory=memory,
-                                infoStorage=storage,
-                                infoOperationalSystem=operationalSystem)
+
+                showEconectData(name_econect,
+                                currentVersion,
+                                oldVersion,
+                                updateDate,
+                                updateAnalist,
+                                clisitefVersion_econect,
+                                jarReason_econect,
+                                jarTicket,
+                                jarInstDate,
+                                dbSize,
+                                dbCleanDate,
+                                dbCleanAnalist)
+
+                showHardwareCompData(infoProcessor=processor,
+                                     infoMemory=memory,
+                                     infoStorage=storage,
+                                     infoOperationalSystem=operationalSystem,
+                                     infoMaintenanceDescription=maintenanceDescription,
+                                     infoMaintenanceDate=maintenanceDate,
+                                     infoMaintenanceResponsible=maintenanceResp,
+                                     infoSerialNumber=serialNumber)
 
         elif compType == 2:  # Type = Vasilhame:
             if 'vasilhame' in row[0].lower():
                 count += 1
-                (name,
-                 ip,
+                econectRow = econectValues[i]
+                (name_econect,
                  currentVersion,
                  oldVersion,
                  updateDate,
-                 clisitefVersion,
-                 jarDate,
-                 vpnDate,
-                 routeDate,
-                 bdSize,
-                 bdCleanDate,
-                 maintenanceDate) = getCompData(row, customerName)
+                 updateAnalist,
+                 clisitefVersion_econect,
+                 jarReason_econect,
+                 jarTicket,
+                 jarInstDate,
+                 dbSize,
+                 dbCleanDate,
+                 dbCleanAnalist) = getEconectData(econectRow)
 
-                compAddRow = compAddValues[i]
-                (name_add,
-                 ip_add,
+                compHardwareRow = compHardwareValues[i]
+                (name_hardware,
+                 ip_hardware,
                  processor,
                  memory,
                  storage,
-                 operationalSystem) = getAddCompData(compAddRow)
+                 operationalSystem,
+                 maintenanceDescription,
+                 maintenanceDate,
+                 maintenanceResp,
+                 serialNumber) = getHardwareCompData(compHardwareRow)
 
                 print('---------------------------')
-                showCompData(infoName=name,
-                             infoIP=ip,
-                             infoCurrentVersion=currentVersion,
-                             infoOldVersion=oldVersion,
-                             infoUpdateDate=updateDate,
-                             infoClisitefVersion=clisitefVersion,
-                             infoJarDate=jarDate,
-                             infoVPNDate=vpnDate,
-                             infoRouteDate=routeDate,
-                             infoBDSize=bdSize,
-                             infoBDCleanDate=bdCleanDate,
-                             infoMaintenanceDate=maintenanceDate, )
-                showAddCompData(infoProcessor=processor,
-                                infoMemory=memory,
-                                infoStorage=storage,
-                                infoOperationalSystem=operationalSystem)
+                showEconectData(name_econect,
+                                currentVersion,
+                                oldVersion,
+                                updateDate,
+                                updateAnalist,
+                                clisitefVersion_econect,
+                                jarReason_econect,
+                                jarTicket,
+                                jarInstDate,
+                                dbSize,
+                                dbCleanDate,
+                                dbCleanAnalist)
+
+                showHardwareCompData(infoProcessor=processor,
+                                     infoMemory=memory,
+                                     infoStorage=storage,
+                                     infoOperationalSystem=operationalSystem,
+                                     infoMaintenanceDescription=maintenanceDescription,
+                                     infoMaintenanceDate=maintenanceDate,
+                                     infoMaintenanceResponsible=maintenanceResp,
+                                     infoSerialNumber=serialNumber)
 
         elif compType == 3:  # Type = PDV:
             if control == 0:
@@ -290,44 +326,54 @@ def displayCompInfoByType(compValues, compAddValues, customerName, compType, *pd
 
             if f'pdv {pdv}' in row[0].lower():
                 count += 1
-                (name,
-                 ip,
+                econectRow = econectValues[i]
+                (name_econect,
                  currentVersion,
                  oldVersion,
                  updateDate,
-                 clisitefVersion,
-                 jarDate,
-                 vpnDate,
-                 routeDate,
-                 bdSize,
-                 bdCleanDate,
-                 maintenanceDate) = getCompData(row, customerName)
+                 updateAnalist,
+                 clisitefVersion_econect,
+                 jarReason_econect,
+                 jarTicket,
+                 jarInstDate,
+                 dbSize,
+                 dbCleanDate,
+                 dbCleanAnalist) = getEconectData(econectRow)
 
-                compAddRow = compAddValues[i]
-                (name_add,
-                 ip_add,
+                compHardwareRow = compHardwareValues[i]
+                (name_hardware,
+                 ip_hardware,
                  processor,
                  memory,
                  storage,
-                 operationalSystem) = getAddCompData(compAddRow)
+                 operationalSystem,
+                 maintenanceDescription,
+                 maintenanceDate,
+                 maintenanceResp,
+                 serialNumber) = getHardwareCompData(compHardwareRow)
 
                 print('---------------------------')
-                showCompData(infoName=name,
-                             infoIP=ip,
-                             infoCurrentVersion=currentVersion,
-                             infoOldVersion=oldVersion,
-                             infoUpdateDate=updateDate,
-                             infoClisitefVersion=clisitefVersion,
-                             infoJarDate=jarDate,
-                             infoVPNDate=vpnDate,
-                             infoRouteDate=routeDate,
-                             infoBDSize=bdSize,
-                             infoBDCleanDate=bdCleanDate,
-                             infoMaintenanceDate=maintenanceDate, )
-                showAddCompData(infoProcessor=processor,
-                                infoMemory=memory,
-                                infoStorage=storage,
-                                infoOperationalSystem=operationalSystem)
+                showEconectData(name_econect,
+                                currentVersion,
+                                oldVersion,
+                                updateDate,
+                                updateAnalist,
+                                clisitefVersion_econect,
+                                jarReason_econect,
+                                jarTicket,
+                                jarInstDate,
+                                dbSize,
+                                dbCleanDate,
+                                dbCleanAnalist)
+
+                showHardwareCompData(infoProcessor=processor,
+                                     infoMemory=memory,
+                                     infoStorage=storage,
+                                     infoOperationalSystem=operationalSystem,
+                                     infoMaintenanceDescription=maintenanceDescription,
+                                     infoMaintenanceDate=maintenanceDate,
+                                     infoMaintenanceResponsible=maintenanceResp,
+                                     infoSerialNumber=serialNumber)
             control += 1
 
         else:

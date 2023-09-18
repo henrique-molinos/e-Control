@@ -9,7 +9,7 @@ from googleapiclient.errors import HttpError
 # System lib (Alpha)
 import os
 
-# Dealing with data (preAlpha) -- data.py; showStuff.py
+# Dealing with data (preAlpha) -- showStuff.py
 # from data import *
 from showStuff import *
 
@@ -18,8 +18,9 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # The ID and range of a sample spreadsheet.
 SAMPLE_SPREADSHEET_ID = '1Jj74J-d-AYBZjFhk5F0eppoDiKJB3uBx7AugB_lpG3w'
-SAMPLE_RANGE_NAME = 'Beltrame!A5:K117'
-HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A5:F117'
+SAMPLE_RANGE_NAME = 'Beltrame_Geral!A5:E113'
+ECONECT_RANGE_NAME = 'Beltrame_Econect!A5:L113'
+HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A5:J113'
 
 
 def main(sample_range_name):
@@ -118,25 +119,32 @@ while True:
 
                 # Defining ranges on the table
                 if branch == 1:
-                    SAMPLE_RANGE_NAME = 'Beltrame!A5:K23'
-                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A5:F23'
+                    SAMPLE_RANGE_NAME = 'Beltrame_Geral!A5:E23'
+                    ECONECT_RANGE_NAME = 'Beltrame_Econect!A5:L23'
+                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A5:J23'
                 elif branch == 2:
-                    SAMPLE_RANGE_NAME = 'Beltrame!A25:K41'
-                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A25:F41'
+                    SAMPLE_RANGE_NAME = 'Beltrame_Geral!A25:E40'
+                    ECONECT_RANGE_NAME = 'Beltrame_Econect!A25:L40'
+                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A25:J40'
                 elif branch == 3:
-                    SAMPLE_RANGE_NAME = 'Beltrame!A43:K72'
-                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A43:F72'
+                    SAMPLE_RANGE_NAME = 'Beltrame_Geral!A42:E69'
+                    ECONECT_RANGE_NAME = 'Beltrame_Econect!A42:L69'
+                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A42:J69'
                 elif branch == 4:
-                    SAMPLE_RANGE_NAME = 'Beltrame!A74:K90'
-                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A74:F90'
+                    SAMPLE_RANGE_NAME = 'Beltrame_Geral!A71:E86'
+                    ECONECT_RANGE_NAME = 'Beltrame_Econect!A71:L86'
+                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A71:J86'
                 elif branch == 5:
-                    SAMPLE_RANGE_NAME = 'Beltrame!A92:K117'
-                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A92:F117'
+                    SAMPLE_RANGE_NAME = 'Beltrame_Geral!A88:E113'
+                    ECONECT_RANGE_NAME = 'Beltrame_Econect!A88:L113'
+                    HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A88:J113'
 
         elif customer == 2:
             branches = [1, 9]
             customerName = 'Bom Preço'
-            SAMPLE_RANGE_NAME = 'BomPreco!A5:K17'
+            SAMPLE_RANGE_NAME = 'BomPreco_Geral!A5:E17'
+            ECONECT_RANGE_NAME = 'BomPreco_Econect!A5:L17'
+            HARDWARE_RANGE_NAME = 'BomPreco_Hardware!A5:J17'
 
             os.system('cls')
             showBranches(customerName)
@@ -155,12 +163,16 @@ while True:
 
                 # Defining ranges on the table
                 if branch == 1:
-                    SAMPLE_RANGE_NAME = 'BomPreco!A5:K17'
+                    SAMPLE_RANGE_NAME = 'BomPreco_Geral!A5:E17'
+                    ECONECT_RANGE_NAME = 'BomPreco_Econect!A5:L17'
+                    HARDWARE_RANGE_NAME = 'BomPreco_Hardware!A5:J17'
 
         elif customer == 3:
             branches = [1, 2, 3, 9]
             customerName = 'Lima'
-            SAMPLE_RANGE_NAME = 'Lima!A5:J41'
+            SAMPLE_RANGE_NAME = 'Lima_Geral!A5:E41'
+            ECONECT_RANGE_NAME = 'Lima_Econect!A5:L41'
+            HARDWARE_RANGE_NAME = 'Lima_Hardware!A5:J41'
 
             os.system('cls')
             showBranches(customerName)
@@ -179,16 +191,24 @@ while True:
 
                 # Defining ranges on the table
                 if branch == 1:
-                    SAMPLE_RANGE_NAME = 'Lima!A5:J16'
+                    SAMPLE_RANGE_NAME = 'Lima_Geral!A5:E16'
+                    ECONECT_RANGE_NAME = 'Lima_Econect!A5:L16'
+                    HARDWARE_RANGE_NAME = 'Lima_Hardware!A5:J16'
                 elif branch == 2:
-                    SAMPLE_RANGE_NAME = 'Lima!A18:J28'
+                    SAMPLE_RANGE_NAME = 'Lima_Geral!A18:E28'
+                    ECONECT_RANGE_NAME = 'Lima_Econect!A18:L28'
+                    HARDWARE_RANGE_NAME = 'Lima_Hardware!A18:J28'
                 elif branch == 3:
-                    SAMPLE_RANGE_NAME = 'Lima!A30:J41'
+                    SAMPLE_RANGE_NAME = 'Lima_Geral!A30:E41'
+                    ECONECT_RANGE_NAME = 'Lima_Econect!A30:L41'
+                    HARDWARE_RANGE_NAME = 'Lima_Hardware!A30:J41'
 
         elif customer == 4:
             branches = [1, 2, 9]
             customerName = 'Pazini'
-            SAMPLE_RANGE_NAME = 'Pazini!A5:K23'
+            SAMPLE_RANGE_NAME = 'Pazini_Geral!A5:E25'
+            ECONECT_RANGE_NAME = 'Pazini_Econect!A5:L25'
+            HARDWARE_RANGE_NAME = 'Pazini_Hardware!A5:J25'
 
             os.system('cls')
             showBranches(customerName)
@@ -207,16 +227,20 @@ while True:
 
                 # Defining ranges on the table
                 if branch == 1:
-                    SAMPLE_RANGE_NAME = 'Pazini!A5:K14'
-                    HARDWARE_RANGE_NAME = 'Pazini_Hardware!A5:F14'
+                    SAMPLE_RANGE_NAME = 'Pazini_Geral!A5:E14'
+                    ECONECT_RANGE_NAME = 'Pazini_Econect!A5:L14'
+                    HARDWARE_RANGE_NAME = 'Pazini_Hardware!A5:J14'
                 elif branch == 2:
-                    SAMPLE_RANGE_NAME = 'Pazini!A16:K25'
-                    HARDWARE_RANGE_NAME = 'Pazini_Hardware!A16:F25'
+                    SAMPLE_RANGE_NAME = 'Pazini_Geral!A16:E25'
+                    ECONECT_RANGE_NAME = 'Pazini_Econect!A16:L25'
+                    HARDWARE_RANGE_NAME = 'Pazini_Hardware!A16:J25'
 
         elif customer == 5:
             branches = [1, 2, 3, 9]
             customerName = 'Único'
-            SAMPLE_RANGE_NAME = 'Único!A5:J74'
+            SAMPLE_RANGE_NAME = 'Unico_Geral!A5:E71'
+            ECONECT_RANGE_NAME = 'Unico_Econect!A5:L71'
+            HARDWARE_RANGE_NAME = 'Unico_Hardware!A5:J71'
 
             os.system('cls')
             showBranches(customerName)
@@ -235,14 +259,17 @@ while True:
 
                 # Defining ranges on the table
                 if branch == 1:
-                    SAMPLE_RANGE_NAME = 'Único!A5:J29'
-                    HARDWARE_RANGE_NAME = 'Único_Hardware!A5:F29'
+                    SAMPLE_RANGE_NAME = 'Unico_Geral!A5:E29'
+                    ECONECT_RANGE_NAME = 'Unico_Econect!A5:L29'
+                    HARDWARE_RANGE_NAME = 'Unico_Hardware!A5:J29'
                 elif branch == 2:
-                    SAMPLE_RANGE_NAME = 'Único!A31:J48'
-                    HARDWARE_RANGE_NAME = 'Único_Hardware!A31:F48'
+                    SAMPLE_RANGE_NAME = 'Unico_Geral!A31:E48'
+                    ECONECT_RANGE_NAME = 'Unico_Econect!A31:L48'
+                    HARDWARE_RANGE_NAME = 'Unico_Hardware!A31:J48'
                 elif branch == 3:
-                    SAMPLE_RANGE_NAME = 'Único!A50:J71'
-                    HARDWARE_RANGE_NAME = 'Único_Hardware!A50:F71'
+                    SAMPLE_RANGE_NAME = 'Unico_Geral!A50:E71'
+                    ECONECT_RANGE_NAME = 'Unico_Econect!A50:L71'
+                    HARDWARE_RANGE_NAME = 'Unico_Hardware!A50:J71'
 
         if branch == 9:
             os.system('cls')
@@ -268,7 +295,7 @@ while True:
                 values = cleaningData(values)
                 values, branchName = showBranch(option, values)  # END of verification and reset
 
-            displayCompInfo(values, customerName)
+            displayCompInfo(values)
 
             # Menu -- view details / back to showBranches() / exit
             options = [1]
@@ -329,13 +356,17 @@ while True:
                         compValues = cleaningData(compValues)
                         compValues, branchName = showBranch(option, compValues)
 
-                        addValues = main(HARDWARE_RANGE_NAME)
-                        addValues = cleaningData(addValues)
-                        addValues, addBranchName = showBranch(option, addValues)
+                        econectValues = main(ECONECT_RANGE_NAME)
+                        econectValues = cleaningData(econectValues)
+                        econectValues, econectBranchName = showBranch(option, econectValues)
+
+                        hardwareValues = main(HARDWARE_RANGE_NAME)
+                        hardwareValues = cleaningData(hardwareValues)
+                        hardwareValues, hardwareBranchName = showBranch(option, hardwareValues)
 
                         os.system('cls')
                         header(f'> CONCENTRADOR - {branchName} <\n')
-                        displayCompInfoByType(compValues, addValues, customerName, compType)
+                        displayCompInfoByType(compValues, econectValues, hardwareValues, compType)
 
                         # Menu after showing details
                         showCompByTypeOptions(compType)
@@ -364,13 +395,17 @@ while True:
                         compValues = cleaningData(compValues)
                         compValues, addBranchName = showBranch(option, compValues)
 
-                        addValues = main(HARDWARE_RANGE_NAME)
-                        addValues = cleaningData(addValues)
-                        addValues, branchName = showBranch(option, addValues)
+                        econectValues = main(ECONECT_RANGE_NAME)
+                        econectValues = cleaningData(econectValues)
+                        econectValues, econectBranchName = showBranch(option, econectValues)
+
+                        hardwareValues = main(HARDWARE_RANGE_NAME)
+                        hardwareValues = cleaningData(hardwareValues)
+                        hardwareValues, hardwareBranchName = showBranch(option, hardwareValues)
 
                         os.system('cls')
                         header(f'> VASILHAME - {branchName} <\n')
-                        count = displayCompInfoByType(compValues, addValues, customerName, compType)
+                        count = displayCompInfoByType(compValues, econectValues, hardwareValues, compType)
 
                         # Menu after showing details
                         showCompByTypeOptions(compType, count)
@@ -411,9 +446,13 @@ while True:
                             compValues = cleaningData(compValues)
                             compValues, addBranchName = showBranch(option, compValues)
 
-                            addValues = main(HARDWARE_RANGE_NAME)
-                            addValues = cleaningData(addValues)
-                            addValues, branchName = showBranch(option, addValues)
+                            econectValues = main(ECONECT_RANGE_NAME)
+                            econectValues = cleaningData(econectValues)
+                            econectValues, econectBranchName = showBranch(option, econectValues)
+
+                            hardwareValues = main(HARDWARE_RANGE_NAME)
+                            hardwareValues = cleaningData(hardwareValues)
+                            hardwareValues, hardwareBranchName = showBranch(option, hardwareValues)
 
                             os.system('cls')
                             pdvs = showPdvs(compValues, branchName)
@@ -443,7 +482,7 @@ while True:
                             pdv = str(pdv)
                             os.system('cls')
                             header(f'> PONTO DE VENDA - {branchName} <\n')
-                            displayCompInfoByType(compValues, addValues, customerName, compType, pdv)
+                            displayCompInfoByType(compValues, econectValues, hardwareValues, compType, pdv)
 
                             # Menu after showing details
                             showCompByTypeOptions(compType)
@@ -462,7 +501,7 @@ while True:
                                 if pdvOption not in pdvOptions:
                                     os.system('cls')
                                     header(f'> PONTO DE VENDA - {branchName} <\n')
-                                    displayCompInfoByType(compValues, addValues, customerName, compType, pdv)
+                                    displayCompInfoByType(compValues, econectValues, hardwareValues, customerName, compType, pdv)
                                     showCompByTypeOptions(compType)
                                     print('> Erro. Selecione uma opção válida!\n')
                                     continue
