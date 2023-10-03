@@ -12,17 +12,28 @@ def cleaningData(values):
     return values
 
 
-def getCompData(infoRow):
+def getIP(infoRow):
     (infoName,
      infoIP,
      infoEconectVersion,
      infoClisitefVersion,
      infoJarReason) = infoRow
+    return infoIP
+
+
+def getCompData(infoRow):
+    (infoName,
+     infoIP,
+     infoEconectVersion,
+     infoClisitefVersion,
+     infoJarReason,
+     infoSerialNumber) = infoRow
     return (infoName,
             infoIP,
             infoEconectVersion,
             infoClisitefVersion,
-            infoJarReason)
+            infoJarReason,
+            infoSerialNumber)
 
 
 def getEconectData(infoRow):

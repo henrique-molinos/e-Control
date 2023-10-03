@@ -1,0 +1,706 @@
+[
+  {
+    "customer": "beltrame",
+    "branch": 1,
+    "name": "Concentrador 1 (EC)",
+    "host": "100.0.4.140",
+    "user": "root",
+    "passwd": "960101"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 1,
+    "name": "PDV 12",
+    "host": "100.0.1.229",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 1,
+    "name": "PDV 13",
+    "host": "100.0.1.207",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 1,
+    "name": "PDV 14",
+    "host": "100.0.1.206",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 1,
+    "name": "PDV 15",
+    "host": "100.0.1.203",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 1,
+    "name": "PDV 16",
+    "host": "100.0.1.201",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 1,
+    "name": "PDV 17",
+    "host": "100.0.1.209",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 1,
+    "name": "PDV 18",
+    "host": "100.0.1.210",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 1,
+    "name": "PDV 19",
+    "host": "100.0.1.208",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 1,
+    "name": "PDV 21",
+    "host": "100.0.1.211",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 1,
+    "name": "PDV 22",
+    "host": "100.0.1.112",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 1,
+    "name": "PDV 23",
+    "host": "100.0.1.202",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 1,
+    "name": "PDV 24",
+    "host": "100.0.1.204",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 1,
+    "name": "PDV 25",
+    "host": "100.0.1.218",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 1,
+    "name": "PDV 26",
+    "host": "100.0.1.219",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 2,
+    "name": "Concentrador 2 (PP)",
+    "host": "100.0.3.140",
+    "user": "sicon",
+    "passwd": "960101"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 2,
+    "name": "PDV 19",
+    "host": "100.0.3.86",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 2,
+    "name": "PDV 20",
+    "host": "100.0.3.220",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 2,
+    "name": "PDV 21",
+    "host": "100.0.3.203",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 2,
+    "name": "PDV 22",
+    "host": "100.0.3.205",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 2,
+    "name": "PDV 23",
+    "host": "100.0.3.208",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 2,
+    "name": "PDV 24",
+    "host": "100.0.3.207",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 2,
+    "name": "PDV 25",
+    "host": "100.0.3.202",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 2,
+    "name": "PDV 26",
+    "host": "100.0.3.204",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 2,
+    "name": "PDV 27",
+    "host": "100.0.3.228",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 2,
+    "name": "PDV 29",
+    "host": "100.0.3.229",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 2,
+    "name": "PDV 30",
+    "host": "100.0.3.230",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "Concentrador Matrizão",
+    "host": "100.0.1.140",
+    "user": "root",
+    "passwd": "2Dq61PWSoqX*oB5FksP"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "Concentrador 3 (HB)",
+    "host": "100.0.5.200",
+    "user": "root",
+    "passwd": "960101"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "Concentrador 31 (Foralle)",
+    "host": "100.0.5.199",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 01",
+    "host": "100.0.5.201",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 02",
+    "host": "100.0.5.202",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 03",
+    "host": "100.0.5.203",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 04",
+    "host": "100.0.5.204",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 05",
+    "host": "100.0.5.205",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 06",
+    "host": "100.0.5.206",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 07",
+    "host": "100.0.5.207",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 08",
+    "host": "100.0.5.208",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 09",
+    "host": "100.0.5.209",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 10",
+    "host": "100.0.5.210",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 11",
+    "host": "100.0.5.211",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 12",
+    "host": "100.0.5.212",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 13",
+    "host": "100.0.5.213",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 14",
+    "host": "100.0.5.214",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 15",
+    "host": "100.0.5.215",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 16",
+    "host": "100.0.5.216",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 17",
+    "host": "100.0.5.217",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 18",
+    "host": "100.0.5.218",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 19",
+    "host": "100.0.5.219",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 20 (e-Commerce)",
+    "host": "100.0.5.220",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 21 (Foralle)",
+    "host": "100.0.5.221",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 3,
+    "name": "PDV 22 (Cafeteria)",
+    "host": "100.0.5.222",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 4,
+    "name": "Concentrador 4 (VA)",
+    "host": "100.0.2.141",
+    "user": "root",
+    "passwd": "960101"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 4,
+    "name": "PDV 12 (Reserva)",
+    "host": "100.0.2.92",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 4,
+    "name": "PDV 13",
+    "host": "100.0.2.77",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 4,
+    "name": "PDV 14",
+    "host": "100.0.2.82",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 4,
+    "name": "PDV 15",
+    "host": "100.0.2.83",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 4,
+    "name": "PDV 16",
+    "host": "100.0.2.80",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 4,
+    "name": "PDV 17",
+    "host": "100.0.2.74",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 4,
+    "name": "PDV 18",
+    "host": "100.0.2.73",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 4,
+    "name": "PDV 19",
+    "host": "100.0.2.72",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 4,
+    "name": "PDV 20",
+    "host": "100.0.2.69",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 4,
+    "name": "PDV 21",
+    "host": "100.0.2.71",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 4,
+    "name": "PDV 22",
+    "host": "100.0.2.133",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "Concentrador 5 (Camobi)",
+    "host": "100.0.7.200",
+    "user": "root",
+    "passwd": "960101"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 01",
+    "host": "100.0.7.201",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 02",
+    "host": "100.0.7.202",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 03",
+    "host": "100.0.7.203",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 04",
+    "host": "100.0.7.204",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 05",
+    "host": "100.0.7.205",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 06",
+    "host": "100.0.7.206",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 07",
+    "host": "100.0.7.207",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 08",
+    "host": "100.0.7.208",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 09",
+    "host": "100.0.7.209",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 10",
+    "host": "100.0.7.210",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 11",
+    "host": "100.0.7.211",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 12",
+    "host": "100.0.7.212",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 13",
+    "host": "100.0.7.213",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 14",
+    "host": "100.0.7.214",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 15",
+    "host": "100.0.7.215",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 16",
+    "host": "100.0.7.216",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 17",
+    "host": "100.0.7.217",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 18",
+    "host": "100.0.7.218",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 19",
+    "host": "100.0.7.219",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 20",
+    "host": "100.0.7.220",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 21",
+    "host": "100.0.7.221",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "beltrame",
+    "branch": 5,
+    "name": "PDV 22",
+    "host": "100.0.7.222",
+    "user": "root",
+    "passwd": "root"
+  },
+  {
+    "customer": "sicon",
+    "branch": 1,
+    "name": "PDV 50",
+    "host": "192.168.0.120",
+    "user": "root",
+    "passwd": "root"
+  }
+]

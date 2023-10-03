@@ -1,4 +1,5 @@
 from data import *
+import os
 
 
 def header(screen):
@@ -75,7 +76,6 @@ def showBranch(option, values):
 
         if 'Loja' in row[0]:
             branchName = row[0]
-            print(branchName.upper())
             values.pop(i)
             return values, branchName
 
@@ -103,12 +103,14 @@ def showCompData(infoName,
                  infoIP,
                  infoEconectVersion,
                  infoClisitefVersion,
-                 infoJarReason):
+                 infoJarReason,
+                 infoSerialNumber):
     print(infoName, '\n  '
                     'IP:', infoIP, '\n  '
                     'Versão Atual:', infoEconectVersion, '\n  '                                                      
                     'Versão CliSiTEF:', infoClisitefVersion, '\n  '                          
-                    'Motivo Jar:', infoJarReason)
+                    'Motivo Jar:', infoJarReason, '\n  '
+                    'N/S:', infoSerialNumber)
 
 
 def showEconectData(infoName,
@@ -169,14 +171,16 @@ def displayCompInfo(finalValues):
          ip,
          econectVersion,
          clisitefVersion,
-         jarReason) = getCompData(row)
+         jarReason,
+         serialNumber) = getCompData(row)
 
         print('---------------------------')
         showCompData(infoName=name,
                      infoIP=ip,
                      infoEconectVersion=econectVersion,
                      infoClisitefVersion=clisitefVersion,
-                     infoJarReason=jarReason)
+                     infoJarReason=jarReason,
+                     infoSerialNumber=serialNumber)
 
 
 def showPdvs(pdValues, branchName):
@@ -319,6 +323,8 @@ def displayCompInfoByType(compValues, econectValues, compHardwareValues, compTyp
                                      infoSerialNumber=serialNumber)
 
         elif compType == 3:  # Type = PDV:
+            ip_hardware = ''
+
             if control == 0:
                 pdv = pdv[0]
             if control == 0 and len(pdv) == 1:
@@ -375,6 +381,8 @@ def displayCompInfoByType(compValues, econectValues, compHardwareValues, compTyp
                                      infoMaintenanceResponsible=maintenanceResp,
                                      infoSerialNumber=serialNumber)
             control += 1
+            if count != 0:
+                return ip_hardware
 
         else:
             print('FALHA CATASTRÓFICA!\nO tipo de computador selecionado não existe.')
@@ -398,5 +406,122 @@ def showCompByTypeOptions(compType, *countTuple):
                   '0.INÍCIO\n')
     else:
         print('\n-----------------------\n'
+              '1.EXECUTAR SSH\n'
               '9.VOLTAR\n'
               '0.INÍCIO\n')
+
+
+def displaySshOptions(computerName, branchName):
+    commandControl = 0
+
+    while True:
+        if commandControl == 999:
+            os.system('cls')
+
+        header(f'> CONEXÃO SSH - {computerName} - {branchName} <\n')
+        print('TIPOS DE COMANDOS:\n')
+
+        commandTypes = [1, 2, 9]
+        commandType = 404
+
+        while commandType not in commandTypes:
+            print('1.COMANDOS DE CONSULTA\n'
+                  '2.COMANDOS DE EXECUÇÃO\n'
+                  '------------------------------------------------\n'
+                  '9.VOLTAR\n')
+            commandType = int(input('Selecione uma opção: '))
+
+            if commandType not in commandTypes:
+                os.system('cls')
+                print('> Erro. Informe um código de tipo de comando válido!\n')
+                continue
+
+        queryCommandOptions = [1, 2, 3, 4, 9]
+        executionCommandOptions = [1, 2, 9]
+        commandOption = 404
+        commandControl = 404
+
+        # If commandType is QUERY
+        os.system('cls')
+        if commandType == 1:
+            while commandOption not in queryCommandOptions:
+                # Tests if user entered an invalid option (line 68 condition)
+                if commandControl == 99:
+                    os.system('cls')
+                    header(f'> CONEXÃO SSH - {computerName} - {branchName} <\n')
+                    print('COMANDOS DE CONSULTA:\n'
+                          '1.Verificar memória livre -> free -h\n'
+                          '2.Verificar dispositivos USB conectados -> lsusb\n'
+                          '3.Verificar hardware -- SO / Procesador / Memória / Armazenamento\n'
+                          '4.Verificar conteúdo estrutura.sh e parametros.sh\n'
+                          '------------------------------------------------------\n'
+                          '9.VOLTAR\n')
+                    print('> Erro. Informe um código de comando válido!\n')
+                    commandOption = int(input('Selecione uma opção: '))
+                    if commandOption == 9:
+                        commandControl = 999
+                        break
+                else:
+                    os.system('cls')
+                    header(f'> CONEXÃO SSH - {computerName} - {branchName} <\n')
+                    print('COMANDOS DE CONSULTA:\n'
+                          '1.Verificar memória livre -> free -h\n'
+                          '2.Verificar dispositivos USB conectados -> lsusb\n'
+                          '3.Verificar hardware -- SO / Procesador / Memória / Armazenamento\n'
+                          '4.Verificar conteúdo estrutura.sh e parametros.sh\n'
+                          '-----------------------------------------------\n'
+                          '9.VOLTAR\n')
+                    commandOption = int(input('Selecione uma opção: '))
+                    if commandOption == 9:
+                        commandControl = 999
+                        break
+                    if commandOption not in queryCommandOptions:
+                        commandControl = 99
+                        continue
+
+        # If commandType is EXECUTION
+        elif commandType == 2:
+            while commandOption not in executionCommandOptions:
+                # Tests if user entered an invalid option (line 68 condition)
+                if commandControl == 99:
+                    os.system('cls')
+                    header(f'> CONEXÃO SSH - {computerName} - {branchName} <\n')
+                    print('COMANDOS DE EXECUÇÃO:\n'
+                          '1.Desconectar sessões ativas via VNC\n'
+                          '2.Corrigir arquivos de monitor (estrutura.sh & parametros.sh)\n'
+                          '------------------------------------------------------\n'
+                          '9.VOLTAR\n')
+                    print('> Erro. Informe um código de comando válido!\n')
+                    commandOption = int(input('Selecione uma opção: '))
+                    if commandOption == 9:
+                        commandControl = 999
+                        break
+                else:
+                    os.system('cls')
+                    header(f'> CONEXÃO SSH - {computerName} - {branchName} <\n')
+                    print('COMANDOS DE EXECUÇÃO:\n'
+                          '1.Desconectar sessões ativas via VNC\n'
+                          '2.Corrigir arquivos de monitor (estrutura.sh & parametros.sh)\n'
+                          '------------------------------------------------------\n'
+                          '9.VOLTAR\n')
+                    commandOption = int(input('Selecione uma opção: '))
+                    if commandOption == 9:
+                        commandControl = 999
+                        break
+                    if commandOption not in executionCommandOptions:
+                        commandControl = 99
+                        continue
+        elif commandType == 99:
+            return commandType, commandOption
+
+        if commandControl == 999:
+            continue
+
+        return commandType, commandOption
+
+
+def showAfterSshOptions():
+    print('OPÇÕES:')
+    print('1.EXECUTAR OUTRO COMANDO\n'
+          '9.VOLTAR\n'
+          '0.SAIR\n')

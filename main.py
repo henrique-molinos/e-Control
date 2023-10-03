@@ -6,19 +6,19 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-# System lib (Alpha)
-import os
-
 # Dealing with data (preAlpha) -- showStuff.py
 # from data import *
 from showStuff import *
+
+# SSH Connection
+from sshcnx import SSH_Connection, getComputerCredentials
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # The ID and range of a sample spreadsheet.
 SAMPLE_SPREADSHEET_ID = '1Jj74J-d-AYBZjFhk5F0eppoDiKJB3uBx7AugB_lpG3w'
-SAMPLE_RANGE_NAME = 'Beltrame_Geral!A5:E113'
+SAMPLE_RANGE_NAME = 'Beltrame_Geral!A5:F113'
 ECONECT_RANGE_NAME = 'Beltrame_Econect!A5:L113'
 HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A5:J113'
 
@@ -119,30 +119,30 @@ while True:
 
                 # Defining ranges on the table
                 if branch == 1:
-                    SAMPLE_RANGE_NAME = 'Beltrame_Geral!A5:E23'
+                    SAMPLE_RANGE_NAME = 'Beltrame_Geral!A5:F23'
                     ECONECT_RANGE_NAME = 'Beltrame_Econect!A5:L23'
                     HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A5:J23'
                 elif branch == 2:
-                    SAMPLE_RANGE_NAME = 'Beltrame_Geral!A25:E40'
+                    SAMPLE_RANGE_NAME = 'Beltrame_Geral!A25:F40'
                     ECONECT_RANGE_NAME = 'Beltrame_Econect!A25:L40'
                     HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A25:J40'
                 elif branch == 3:
-                    SAMPLE_RANGE_NAME = 'Beltrame_Geral!A42:E69'
+                    SAMPLE_RANGE_NAME = 'Beltrame_Geral!A42:F69'
                     ECONECT_RANGE_NAME = 'Beltrame_Econect!A42:L69'
                     HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A42:J69'
                 elif branch == 4:
-                    SAMPLE_RANGE_NAME = 'Beltrame_Geral!A71:E86'
+                    SAMPLE_RANGE_NAME = 'Beltrame_Geral!A71:F86'
                     ECONECT_RANGE_NAME = 'Beltrame_Econect!A71:L86'
                     HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A71:J86'
                 elif branch == 5:
-                    SAMPLE_RANGE_NAME = 'Beltrame_Geral!A88:E113'
+                    SAMPLE_RANGE_NAME = 'Beltrame_Geral!A88:F113'
                     ECONECT_RANGE_NAME = 'Beltrame_Econect!A88:L113'
                     HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A88:J113'
 
         elif customer == 2:
             branches = [1, 9]
             customerName = 'Bom Preço'
-            SAMPLE_RANGE_NAME = 'BomPreco_Geral!A5:E17'
+            SAMPLE_RANGE_NAME = 'BomPreco_Geral!A5:F17'
             ECONECT_RANGE_NAME = 'BomPreco_Econect!A5:L17'
             HARDWARE_RANGE_NAME = 'BomPreco_Hardware!A5:J17'
 
@@ -163,14 +163,14 @@ while True:
 
                 # Defining ranges on the table
                 if branch == 1:
-                    SAMPLE_RANGE_NAME = 'BomPreco_Geral!A5:E17'
+                    SAMPLE_RANGE_NAME = 'BomPreco_Geral!A5:F17'
                     ECONECT_RANGE_NAME = 'BomPreco_Econect!A5:L17'
                     HARDWARE_RANGE_NAME = 'BomPreco_Hardware!A5:J17'
 
         elif customer == 3:
             branches = [1, 2, 3, 9]
             customerName = 'Lima'
-            SAMPLE_RANGE_NAME = 'Lima_Geral!A5:E41'
+            SAMPLE_RANGE_NAME = 'Lima_Geral!A5:F41'
             ECONECT_RANGE_NAME = 'Lima_Econect!A5:L41'
             HARDWARE_RANGE_NAME = 'Lima_Hardware!A5:J41'
 
@@ -191,22 +191,22 @@ while True:
 
                 # Defining ranges on the table
                 if branch == 1:
-                    SAMPLE_RANGE_NAME = 'Lima_Geral!A5:E16'
+                    SAMPLE_RANGE_NAME = 'Lima_Geral!A5:F16'
                     ECONECT_RANGE_NAME = 'Lima_Econect!A5:L16'
                     HARDWARE_RANGE_NAME = 'Lima_Hardware!A5:J16'
                 elif branch == 2:
-                    SAMPLE_RANGE_NAME = 'Lima_Geral!A18:E28'
+                    SAMPLE_RANGE_NAME = 'Lima_Geral!A18:F28'
                     ECONECT_RANGE_NAME = 'Lima_Econect!A18:L28'
                     HARDWARE_RANGE_NAME = 'Lima_Hardware!A18:J28'
                 elif branch == 3:
-                    SAMPLE_RANGE_NAME = 'Lima_Geral!A30:E41'
+                    SAMPLE_RANGE_NAME = 'Lima_Geral!A30:F41'
                     ECONECT_RANGE_NAME = 'Lima_Econect!A30:L41'
                     HARDWARE_RANGE_NAME = 'Lima_Hardware!A30:J41'
 
         elif customer == 4:
             branches = [1, 2, 9]
             customerName = 'Pazini'
-            SAMPLE_RANGE_NAME = 'Pazini_Geral!A5:E25'
+            SAMPLE_RANGE_NAME = 'Pazini_Geral!A5:F25'
             ECONECT_RANGE_NAME = 'Pazini_Econect!A5:L25'
             HARDWARE_RANGE_NAME = 'Pazini_Hardware!A5:J25'
 
@@ -227,18 +227,18 @@ while True:
 
                 # Defining ranges on the table
                 if branch == 1:
-                    SAMPLE_RANGE_NAME = 'Pazini_Geral!A5:E14'
+                    SAMPLE_RANGE_NAME = 'Pazini_Geral!A5:F14'
                     ECONECT_RANGE_NAME = 'Pazini_Econect!A5:L14'
                     HARDWARE_RANGE_NAME = 'Pazini_Hardware!A5:J14'
                 elif branch == 2:
-                    SAMPLE_RANGE_NAME = 'Pazini_Geral!A16:E25'
+                    SAMPLE_RANGE_NAME = 'Pazini_Geral!A16:F25'
                     ECONECT_RANGE_NAME = 'Pazini_Econect!A16:L25'
                     HARDWARE_RANGE_NAME = 'Pazini_Hardware!A16:J25'
 
         elif customer == 5:
             branches = [1, 2, 3, 9]
             customerName = 'Único'
-            SAMPLE_RANGE_NAME = 'Unico_Geral!A5:E71'
+            SAMPLE_RANGE_NAME = 'Unico_Geral!A5:F71'
             ECONECT_RANGE_NAME = 'Unico_Econect!A5:L71'
             HARDWARE_RANGE_NAME = 'Unico_Hardware!A5:J71'
 
@@ -259,15 +259,15 @@ while True:
 
                 # Defining ranges on the table
                 if branch == 1:
-                    SAMPLE_RANGE_NAME = 'Unico_Geral!A5:E29'
+                    SAMPLE_RANGE_NAME = 'Unico_Geral!A5:F29'
                     ECONECT_RANGE_NAME = 'Unico_Econect!A5:L29'
                     HARDWARE_RANGE_NAME = 'Unico_Hardware!A5:J29'
                 elif branch == 2:
-                    SAMPLE_RANGE_NAME = 'Unico_Geral!A31:E48'
+                    SAMPLE_RANGE_NAME = 'Unico_Geral!A31:F48'
                     ECONECT_RANGE_NAME = 'Unico_Econect!A31:L48'
                     HARDWARE_RANGE_NAME = 'Unico_Hardware!A31:J48'
                 elif branch == 3:
-                    SAMPLE_RANGE_NAME = 'Unico_Geral!A50:E71'
+                    SAMPLE_RANGE_NAME = 'Unico_Geral!A50:F71'
                     ECONECT_RANGE_NAME = 'Unico_Econect!A50:L71'
                     HARDWARE_RANGE_NAME = 'Unico_Hardware!A50:J71'
 
@@ -277,6 +277,7 @@ while True:
         elif branch == 0:
             quit()
         else:
+            print('\nCarregando dados...')
             values = main(SAMPLE_RANGE_NAME)
 
         # Remove the rows that's not going to be used
@@ -286,6 +287,7 @@ while True:
         # Printing which branch is being showed and popping it after
         option = 404
         values, branchName = showBranch(option, values)
+        print(branchName.upper())
 
         # Shows the info based on the new 'values' list
         while True:
@@ -294,6 +296,7 @@ while True:
                 values = main(SAMPLE_RANGE_NAME)
                 values = cleaningData(values)
                 values, branchName = showBranch(option, values)  # END of verification and reset
+                print(branchName.upper())
 
             displayCompInfo(values)
 
@@ -352,6 +355,7 @@ while True:
                     # Selecting a computer type
                     # Concentrador
                     if compType == 1:
+                        print('\nCarregando dados...')
                         compValues = main(SAMPLE_RANGE_NAME)
                         compValues = cleaningData(compValues)
                         compValues, branchName = showBranch(option, compValues)
@@ -391,6 +395,7 @@ while True:
 
                     # Vasilhame
                     elif compType == 2:
+                        print('\nCarregando dados...')
                         compValues = main(SAMPLE_RANGE_NAME)
                         compValues = cleaningData(compValues)
                         compValues, addBranchName = showBranch(option, compValues)
@@ -439,9 +444,11 @@ while True:
                                 break
 
                             pdv = 404
-                            pdvOptions = [9, 0]
+                            pdvOptions = [1, 9, 0]
                             pdvOption = 404
 
+                            # TODO: Try to optimize this loading
+                            print('\nCarregando dados...')
                             compValues = main(SAMPLE_RANGE_NAME)
                             compValues = cleaningData(compValues)
                             compValues, addBranchName = showBranch(option, compValues)
@@ -456,6 +463,7 @@ while True:
 
                             os.system('cls')
                             pdvs = showPdvs(compValues, branchName)
+
                             while pdv not in pdvs:
                                 print('\n---------------------------\n'
                                       '99.VOLTAR\n'
@@ -479,32 +487,102 @@ while True:
                                 os.system('cls')
                                 break
 
-                            pdv = str(pdv)
-                            os.system('cls')
-                            header(f'> PONTO DE VENDA - {branchName} <\n')
-                            displayCompInfoByType(compValues, econectValues, hardwareValues, compType, pdv)
+                            control = 1
 
-                            # Menu after showing details
-                            showCompByTypeOptions(compType)
-                            while pdvOption not in pdvOptions:
-                                pdvOption = int(input('Selecione uma opção: '))
-                                # Option 9 - back
-                                if pdvOption == 9:
-                                    control = 999
-                                    os.system('cls')
+                            while True:
+
+                                if control in [9, 999]:
                                     break
-                                # Option 0 - home
-                                elif pdvOption == 0:
-                                    control = 9
-                                    compType = 0
-                                    break
-                                if pdvOption not in pdvOptions:
-                                    os.system('cls')
-                                    header(f'> PONTO DE VENDA - {branchName} <\n')
-                                    displayCompInfoByType(compValues, econectValues, hardwareValues, customerName, compType, pdv)
-                                    showCompByTypeOptions(compType)
-                                    print('> Erro. Selecione uma opção válida!\n')
-                                    continue
+
+                                pdv = str(pdv)
+                                os.system('cls')
+                                header(f'> PONTO DE VENDA - {branchName} <\n')
+                                hostIP = displayCompInfoByType(compValues, econectValues, hardwareValues, compType, pdv)
+
+                                # Menu after showing details
+                                showCompByTypeOptions(compType)
+                                while pdvOption not in pdvOptions:
+                                    # Tests if Option 1 was selected after executing a SSH command
+                                    if control == 99 and pdvOption == 404:
+                                        control, pdvOption = 1, 1
+                                    else:
+                                        pdvOption = int(input('Selecione uma opção: '))
+                                    # Option 1 - SSH
+                                    if pdvOption == 1:
+                                        sshOptions = [1, 9, 0]
+                                        sshOption = 404
+
+                                        SSH_PORT = 22
+                                        SSH_HOST, SSH_USER, SSH_PASSWD, computerName, computerCreds = \
+                                            getComputerCredentials(customerName, branch, hostIP, 'computers.json')
+                                        os.system('cls')
+                                        commandType, commandOption = displaySshOptions(computerName, branchName)
+                                        if commandType == 9:
+                                            control = 99
+                                            pdvOption = 99
+                                            os.system('cls')
+                                            break
+                                        else:
+                                            SSH_Connection('192.168.15.44',
+                                                           22,
+                                                           'root',
+                                                           'root',
+                                                           commandType,
+                                                           commandOption,
+                                                           branch,
+                                                           computerName,
+                                                           branchName)
+                                            # SSH_Connection(SSH_HOST,
+                                            #                SSH_USER,
+                                            #                SSH_USER,
+                                            #                SSH_PASSWD,
+                                            #                commandType,
+                                            #                commandOption,
+                                            #                branchName,
+                                            #                computerName)
+                                            showAfterSshOptions()
+                                            while sshOption not in sshOptions:
+                                                sshOption = int(input('Selecione uma opção: '))
+                                                # Option 1 - Execute another command
+                                                if sshOption == 1:
+                                                    control = 99
+                                                    pdvOption = 404
+                                                    break
+                                                elif sshOption == 9:
+                                                    control = 9999
+                                                    pdvOption = 404
+                                                    break
+                                                elif sshOption == 0:
+                                                    control = 9
+                                                    compType = 0
+                                                    break
+
+                                            # Options from line 547
+                                            if sshOption == 1:
+                                                continue
+                                            elif sshOption == 9:
+                                                break
+                                            elif sshOption == 0:
+                                                break
+
+                                    # Option 9 - back
+                                    if pdvOption == 9:
+                                        control = 999
+                                        os.system('cls')
+                                        break
+                                    # Option 0 - home
+                                    elif pdvOption == 0:
+                                        control = 9
+                                        compType = 0
+                                        break
+                                    if pdvOption not in pdvOptions:
+                                        os.system('cls')
+                                        header(f'> PONTO DE VENDA - {branch} <\n')
+                                        displayCompInfoByType(compValues, econectValues, hardwareValues,
+                                                              customerName, compType, pdv)
+                                        showCompByTypeOptions(compType)
+                                        print('> Erro. Selecione uma opção válida!\n')
+                                        continue
 
                 if compType == 9:
                     if computerOption == 9:
