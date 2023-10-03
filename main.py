@@ -523,23 +523,16 @@ while True:
                                             os.system('cls')
                                             break
                                         else:
-                                            SSH_Connection('192.168.15.44',
-                                                           22,
-                                                           'root',
-                                                           'root',
+                                            print('\nTentando realizar conexão SSH...\n')
+                                            SSH_Connection(SSH_HOST,
+                                                           SSH_PORT,
+                                                           SSH_USER,
+                                                           SSH_PASSWD,
                                                            commandType,
                                                            commandOption,
                                                            branch,
                                                            computerName,
                                                            branchName)
-                                            # SSH_Connection(SSH_HOST,
-                                            #                SSH_USER,
-                                            #                SSH_USER,
-                                            #                SSH_PASSWD,
-                                            #                commandType,
-                                            #                commandOption,
-                                            #                branchName,
-                                            #                computerName)
                                             showAfterSshOptions()
                                             while sshOption not in sshOptions:
                                                 sshOption = int(input('Selecione uma opção: '))

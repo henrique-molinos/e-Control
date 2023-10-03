@@ -127,7 +127,7 @@ def SSH_Connection(SSH_HOST, SSH_PORT, SSH_USER, SSH_PASSWD, commandType, comman
         print('> E-CONTROL: Conexão fechada após executar os comandos!\n')
 
     except Exception as excep:
-        print(f'Falha ao estabelecer conexão! Erro: {str(excep)}')
+        print(f'Falha ao estabelecer conexão! Erro: {str(excep)}\n')
 
     finally:
         client.close()
