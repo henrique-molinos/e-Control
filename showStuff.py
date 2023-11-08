@@ -86,7 +86,9 @@ def showBranch(option, values):
 
 def showCompOptions():
     print('-----------------------\n'
-          '1.DETALHES\n'
+          'C.DETALHES - Concentrador\n'
+          'V.DETALHES - Vasilhame\n'
+          'P.DETALHES - PDV\n'
           '9.VOLTAR\n'
           '0.INÍCIO\n')
 
@@ -205,20 +207,20 @@ def showPdvs(pdValues, branchName):
     return pdvList
 
 
-def displayCompInfoByType(compValues, econectValues, compHardwareValues, compType, *pdv):
+def displayCompInfoByType(compValues, econectValues, compHardwareValues, option, *pdv):
     count = 0
     control = 0
     strCompType = ''
 
-    if compType == 1:
+    if option == 'c':
         strCompType = 'CONCENTRADOR'
-    elif compType == 2:
+    elif option == 'v':
         strCompType = 'VASILHAME'
-    elif compType == 3:
+    elif option == 'p':
         strCompType = 'PDV'
 
     for i, row in enumerate(compValues):
-        if compType == 1:  # Type = Concentrador
+        if option == 'c':  # Type = Concentrador
             if 'concentrador' in row[0].lower():
                 count += 1
 
@@ -272,7 +274,7 @@ def displayCompInfoByType(compValues, econectValues, compHardwareValues, compTyp
                                      infoMaintenanceResponsible=maintenanceResp,
                                      infoSerialNumber=serialNumber)
 
-        elif compType == 2:  # Type = Vasilhame:
+        elif option == 'v':  # Type = Vasilhame:
             if 'vasilhame' in row[0].lower():
                 count += 1
                 econectRow = econectValues[i]
@@ -324,7 +326,7 @@ def displayCompInfoByType(compValues, econectValues, compHardwareValues, compTyp
                                      infoMaintenanceResponsible=maintenanceResp,
                                      infoSerialNumber=serialNumber)
 
-        elif compType == 3:  # Type = PDV:
+        elif option == 'p':  # Type = PDV:
             ip_hardware = ''
 
             if control == 0:
@@ -395,8 +397,8 @@ def displayCompInfoByType(compValues, econectValues, compHardwareValues, compTyp
     return count
 
 
-def showCompByTypeOptions(compType, *countTuple):
-    if compType == 2:
+def showCompByTypeOptions(option, *countTuple):
+    if option == 'v':
         count = countTuple[0]
         if count == 0:
             print('\n-----------------------\n'
@@ -439,7 +441,7 @@ def displaySshOptions(computerName, branchName):
                 continue
 
         queryCommandOptions = [1, 2, 3, 4, 5, 9]
-        executionCommandOptions = [1, 2, 3, 9]
+        executionCommandOptions = [1, 2, 3, 4, 9]
         commandOption = 404
         commandControl = 404
 
@@ -494,6 +496,7 @@ def displaySshOptions(computerName, branchName):
                           '1.Desconectar sessões ativas do VNC\n'
                           '2.Finalizar aplicações Java\n'
                           '3.Corrigir arquivos de monitor (estrutura.sh & parametros.sh)\n'
+                          '4.Reiniciar PDV\n'
                           '------------------------------------------------------\n'
                           '9.VOLTAR\n')
                     print('> Erro. Informe um código de comando válido!\n')
@@ -508,6 +511,7 @@ def displaySshOptions(computerName, branchName):
                           '1.Desconectar sessões ativas do VNC\n'
                           '2.Finalizar aplicações Java\n'
                           '3.Corrigir arquivos de monitor (estrutura.sh & parametros.sh)\n'
+                          '4.Reiniciar PDV\n'
                           '------------------------------------------------------\n'
                           '9.VOLTAR\n')
                     commandOption = int(input('Selecione uma opção: '))
@@ -517,8 +521,8 @@ def displaySshOptions(computerName, branchName):
                     while cautionOption not in cautionOptions:
                         if commandOption == 1:
                             cautionOption = input(
-                                '\n[!] ATENÇÃO: O comando selecionado - 1.Desconectar sessões ativas do VNC -'
-                                ' está prestes a ser executado. Você tem certeza que quer continuar? (S/N): ').lower()
+                                '\n[!] ATENÇÃO: O comando selecionado (DESCONECTAR SESSÕES VNC) será executado.\n'
+                                '> Você tem certeza que quer continuar? (S/N): ').lower()
                             if cautionOption == 's':
                                 return commandType, commandOption
                             elif cautionOption == 'n':
@@ -536,8 +540,8 @@ def displaySshOptions(computerName, branchName):
                                 continue
                         elif commandOption == 2:
                             cautionOption = input(
-                                '\n[!] ATENÇÃO: O comando selecionado - 2.Finalizar aplicações Java -'
-                                ' está prestes a ser executado. Você tem certeza que quer continuar? (S/N): ').lower()
+                                '\n[!] ATENÇÃO: O comando selecionado (FINALIZAR APPS. JAVA) será executado.\n'
+                                '> Você tem certeza que quer continuar? (S/N): ').lower()
                             if cautionOption == 's':
                                 return commandType, commandOption
                             elif cautionOption == 'n':
@@ -550,19 +554,19 @@ def displaySshOptions(computerName, branchName):
                                       '1.Desconectar sessões ativas do VNC\n'
                                       '2.Finalizar aplicações Java\n'
                                       '3.Corrigir arquivos de monitor (estrutura.sh & parametros.sh)\n'
+                                      '4.Reiniciar PDV\n'
                                       '------------------------------------------------------\n'
                                       '9.VOLTAR\n')
                                 continue
                         elif commandOption == 3:
                             cautionOption = input(
-                                '\n[!] ATENÇÃO: O comando selecionado - 2.Corrigir arquivos de monitor -'
-                                ' está prestes a ser executado. Você tem certeza que quer continuar? (S/N): ').lower()
+                                '\n[!] ATENÇÃO: O comando selecionado (CORRIGIR ARQ. DE MONITOR) será executado.\n'
+                                '> Você tem certeza que quer continuar? (S/N): ').lower()
                             if cautionOption == 's':
                                 return commandType, commandOption
                             elif cautionOption == 'n':
                                 commandControl = 999
                                 break
-
                             if cautionOption not in cautionOptions:
                                 os.system('cls')
                                 header(f'> CONEXÃO SSH - {computerName} - {branchName} <\n')
@@ -570,6 +574,27 @@ def displaySshOptions(computerName, branchName):
                                       '1.Desconectar sessões ativas do VNC\n'
                                       '2.Finalizar aplicações Java\n'
                                       '3.Corrigir arquivos de monitor (estrutura.sh & parametros.sh)\n'
+                                      '4.Reiniciar PDV\n'
+                                      '------------------------------------------------------\n'
+                                      '9.VOLTAR\n')
+                                continue
+                        elif commandOption == 4:
+                            cautionOption = input(
+                                '\n[!] ATENÇÃO: O comando selecionado (REINICIAR PDV) será executado.\n'
+                                '> Você tem certeza que quer continuar? (S/N): ').lower()
+                            if cautionOption == 's':
+                                return commandType, commandOption
+                            elif cautionOption == 'n':
+                                commandControl = 999
+                                break
+                            if cautionOption not in cautionOptions:
+                                os.system('cls')
+                                header(f'> CONEXÃO SSH - {computerName} - {branchName} <\n')
+                                print('COMANDOS DE EXECUÇÃO:\n'
+                                      '1.Desconectar sessões ativas do VNC\n'
+                                      '2.Finalizar aplicações Java\n'
+                                      '3.Corrigir arquivos de monitor (estrutura.sh & parametros.sh)\n'
+                                      '4.Reiniciar PDV\n'
                                       '------------------------------------------------------\n'
                                       '9.VOLTAR\n')
                                 continue

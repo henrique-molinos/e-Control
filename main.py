@@ -7,7 +7,6 @@ from googleapiclient.errors import HttpError
 # Dealing with data (preAlpha) -- showStuff.py
 # from data import *
 from showStuff import *
-
 # SSH Connection
 from sshcnx import SSH_Connection, getComputerCredentials
 
@@ -88,6 +87,9 @@ while True:
 
     # Branch selection screen
     while True:
+        # Testing if the program got into the Vasilhame details and got no Vasilhame results
+        if control == 9999:
+            control = 0
 
         if control == 9:
             control = 0
@@ -302,25 +304,33 @@ while True:
 
         # Shows the info based on the new 'values' list
         while True:
+            # Testing if the program got into the Vasilhame details and got no Vasilhame results
+            if control == 9999:
+                break
+            # Testing if the program already passed for details and the user decided to go to the Main Menu
+            if control == 9:
+                break
             # Verifying if the program already passed for VIEW MORE and resetting the data collection
-            if control == 999:
+            if control == 99:
+                print('Carregando dados...')
                 values = main(SAMPLE_RANGE_NAME)
                 values = cleaningData(values)
                 values, branchName = showBranch(option, values)  # END of verification and reset
+                os.system('cls')
                 print(branchName.upper())
 
             displayCompInfo(values)
 
             # Menu -- view details / back to showBranches() / exit
-            options = [1]
+            options = ['c', 'v', 'p']
 
             while option not in options:
                 print('\n> Filtro encerrado.')
                 showCompOptions()
-                option = int(input('Selecione uma opção: '))
-                if option == 9:
+                option = input('Selecione uma opção: ')
+                if option == '9':
                     break
-                elif option == 0:
+                elif option == '0':
                     control = 9
                     break
                 if option not in options:
@@ -329,272 +339,253 @@ while True:
                     print('> Erro. Selecione uma opção válida!')
                     continue
 
-            if option == 9:
+            if option == '9':
                 break
-            elif option == 0:
+            elif option == '0':
                 control = 9
                 break
 
-            # Option 1 - View details based on computer type
-            if option == 1:
-                compTypes = [1, 2, 3, 9, 0]  # 1.Concentrador/2.Vasilhame/3.Pdv
-                compType = 404
-                computerOptions = [1]
-                computerOption = 404
+            computerOptions = [1]
+            computerOption = 404
+
+            # Option 'C' - View details of Concentrador
+            if option.lower() == 'c':
+                os.system('cls')
+                print('\nCarregando dados [1/3]...')
+                compValues = main(SAMPLE_RANGE_NAME)
+                compValues = cleaningData(compValues)
+                compValues, branchName = showBranch(option, compValues)
+                os.system('cls')
+                print('\nCarregando dados [2/3]...')
+                econectValues = main(ECONECT_RANGE_NAME)
+                econectValues = cleaningData(econectValues)
+                econectValues, econectBranchName = showBranch(option, econectValues)
+                os.system('cls')
+                print('\nCarregando dados [3/3]...')
+                hardwareValues = main(HARDWARE_RANGE_NAME)
+                hardwareValues = cleaningData(hardwareValues)
+                hardwareValues, hardwareBranchName = showBranch(option, hardwareValues)
 
                 os.system('cls')
-                showCompTypes(branchName)
-                while compType not in compTypes:
-                    # Verifying if the program already passed for VIEW MORE and resetting the data collection
-                    if control in [99, 999]:
+                header(f'> CONCENTRADOR - {branchName} <\n')
+                displayCompInfoByType(compValues, econectValues, hardwareValues, option)
+
+                # Menu after showing details
+                showCompByTypeOptions(option)
+                while computerOption not in computerOptions:
+                    computerOption = int(input('Selecione uma opção: '))
+                    # Option 9 - back
+                    if computerOption == 9:
+                        option = '99'
+                        control = 99
                         os.system('cls')
-                        showCompTypes(branchName)
-                        compType = int(input('Selecione uma opção: '))  # END of verification
-                        if compType not in compTypes:
+                        break
+                    # Option 0 - quit
+                    elif computerOption == 0:
+                        option = '0'
+                        control = 9
+                        break
+                    if computerOption not in computerOptions:
+                        os.system('cls')
+                        showCompByTypeOptions(option)
+                        print('> Erro. Selecione uma opção válida!\n')
+                        continue
+
+            elif option.lower() == 'v':
+                os.system('cls')
+                print('\nCarregando dados [1/3]...')
+                compValues = main(SAMPLE_RANGE_NAME)
+                compValues = cleaningData(compValues)
+                compValues, addBranchName = showBranch(option, compValues)
+                os.system('cls')
+                print('\nCarregando dados [2/3]...')
+                econectValues = main(ECONECT_RANGE_NAME)
+                econectValues = cleaningData(econectValues)
+                econectValues, econectBranchName = showBranch(option, econectValues)
+                os.system('cls')
+                print('\nCarregando dados [3/3]...')
+                hardwareValues = main(HARDWARE_RANGE_NAME)
+                hardwareValues = cleaningData(hardwareValues)
+                hardwareValues, hardwareBranchName = showBranch(option, hardwareValues)
+
+                os.system('cls')
+                header(f'> VASILHAME - {branchName} <\n')
+                count = displayCompInfoByType(compValues, econectValues, hardwareValues, option)
+
+                # Menu after showing details
+                showCompByTypeOptions(option, count)
+                while computerOption not in computerOptions:
+                    computerOption = int(input('Selecione uma opção: '))
+                    # Option 9 - back
+                    if computerOption == 9:
+                        option = '99'
+                        control = 99
+                        os.system('cls')
+                        break
+                    # Option 0 - branch or home -- depends on the count return
+                    elif computerOption == 0:
+                        option = '0'
+                        if count == 0:
+                            control = 9999
+                        else:
+                            control = 9
+                        break
+                    if computerOption not in computerOptions:
+                        os.system('cls')
+                        showCompByTypeOptions(option, count)
+                        print('> Erro. Selecione uma opção válida!\n')
+                        continue
+
+            elif option == 'p':
+
+                while True:
+
+                    if control == 9:
+                        break
+
+                    pdv = 404
+                    pdvOptions = [1, 9, 0]
+                    pdvOption = 404
+
+                    os.system('cls')
+                    print('\nCarregando dados [1/3]...')
+                    compValues = main(SAMPLE_RANGE_NAME)
+                    compValues = cleaningData(compValues)
+                    compValues, addBranchName = showBranch(option, compValues)
+                    os.system('cls')
+                    print('\nCarregando dados [2/3]...')
+                    econectValues = main(ECONECT_RANGE_NAME)
+                    econectValues = cleaningData(econectValues)
+                    econectValues, econectBranchName = showBranch(option, econectValues)
+                    os.system('cls')
+                    print('\nCarregando dados [3/3]...')
+                    hardwareValues = main(HARDWARE_RANGE_NAME)
+                    hardwareValues = cleaningData(hardwareValues)
+                    hardwareValues, hardwareBranchName = showBranch(option, hardwareValues)
+
+                    os.system('cls')
+                    pdvs = showPdvs(compValues, branchName)
+
+                    while pdv not in pdvs:
+                        print('\n---------------------------\n'
+                              '99.VOLTAR\n'
+                              '0.INÍCIO\n')
+                        pdv = int(input('\nSelecione um PDV: '))
+                        if pdv == 99:
+                            option = '99'
+                            control = 99
                             os.system('cls')
-                            showCompTypes(branchName)
-                            print('> Erro. Selecione uma opção válida!\n')
-                            continue
-                    else:
-                        compType = int(input('Selecione uma opção: '))
-                        if compType not in compTypes:
-                            os.system('cls')
-                            showCompTypes(branchName)
-                            print('> Erro. Selecione uma opção válida!\n')
-                            continue
-
-                    # Selecting a computer type
-                    # Concentrador
-                    if compType == 1:
-                        print('\nCarregando dados...')
-                        compValues = main(SAMPLE_RANGE_NAME)
-                        compValues = cleaningData(compValues)
-                        compValues, branchName = showBranch(option, compValues)
-
-                        econectValues = main(ECONECT_RANGE_NAME)
-                        econectValues = cleaningData(econectValues)
-                        econectValues, econectBranchName = showBranch(option, econectValues)
-
-                        hardwareValues = main(HARDWARE_RANGE_NAME)
-                        hardwareValues = cleaningData(hardwareValues)
-                        hardwareValues, hardwareBranchName = showBranch(option, hardwareValues)
-
-                        os.system('cls')
-                        header(f'> CONCENTRADOR - {branchName} <\n')
-                        displayCompInfoByType(compValues, econectValues, hardwareValues, compType)
-
-                        # Menu after showing details
-                        showCompByTypeOptions(compType)
-                        while computerOption not in computerOptions:
-                            computerOption = int(input('Selecione uma opção: '))
-                            # Option 9 - back
-                            if computerOption == 9:
-                                compType = 99
-                                control = 999
-                                os.system('cls')
-                                break
-                            # Option 0 - quit
-                            elif computerOption == 0:
-                                compType = 0
-                                control = 9
-                                break
-                            if computerOption not in computerOptions:
-                                os.system('cls')
-                                showCompByTypeOptions(compType)
-                                print('> Erro. Selecione uma opção válida!\n')
-                                continue
-
-                    # Vasilhame
-                    elif compType == 2:
-                        print('\nCarregando dados...')
-                        compValues = main(SAMPLE_RANGE_NAME)
-                        compValues = cleaningData(compValues)
-                        compValues, addBranchName = showBranch(option, compValues)
-
-                        econectValues = main(ECONECT_RANGE_NAME)
-                        econectValues = cleaningData(econectValues)
-                        econectValues, econectBranchName = showBranch(option, econectValues)
-
-                        hardwareValues = main(HARDWARE_RANGE_NAME)
-                        hardwareValues = cleaningData(hardwareValues)
-                        hardwareValues, hardwareBranchName = showBranch(option, hardwareValues)
-
-                        os.system('cls')
-                        header(f'> VASILHAME - {branchName} <\n')
-                        count = displayCompInfoByType(compValues, econectValues, hardwareValues, compType)
-
-                        # Menu after showing details
-                        showCompByTypeOptions(compType, count)
-                        while computerOption not in computerOptions:
-                            computerOption = int(input('Selecione uma opção: '))
-                            # Option 9 - back
-                            if computerOption == 9:
-                                compType = 99
-                                control = 999
-                                os.system('cls')
-                                break
-                            # Option 0 - branch or home -- depends on the count return
-                            elif computerOption == 0:
-                                compType = 0
-                                if count == 0:
-                                    control = 0
-                                else:
-                                    control = 9
-                                break
-                            if computerOption not in computerOptions:
-                                os.system('cls')
-                                showCompByTypeOptions(compType, count)
-                                print('> Erro. Selecione uma opção válida!\n')
-                                continue
-
-                    # PDV
-                    elif compType == 3:
-                        while True:
-
-                            if control == 9:
-                                break
-
-                            pdv = 404
-                            pdvOptions = [1, 9, 0]
-                            pdvOption = 404
-
-                            # TODO: Try to optimize this loading
-                            print('\nCarregando dados...')
-                            compValues = main(SAMPLE_RANGE_NAME)
-                            compValues = cleaningData(compValues)
-                            compValues, addBranchName = showBranch(option, compValues)
-
-                            econectValues = main(ECONECT_RANGE_NAME)
-                            econectValues = cleaningData(econectValues)
-                            econectValues, econectBranchName = showBranch(option, econectValues)
-
-                            hardwareValues = main(HARDWARE_RANGE_NAME)
-                            hardwareValues = cleaningData(hardwareValues)
-                            hardwareValues, hardwareBranchName = showBranch(option, hardwareValues)
-
+                            break
+                        elif pdv == 0:
+                            control = 9
+                            option = '0'
+                            break
+                        if pdv not in pdvs:
                             os.system('cls')
                             pdvs = showPdvs(compValues, branchName)
+                            print('\n> Erro. Selecione um PDV válido!')
 
-                            while pdv not in pdvs:
-                                print('\n---------------------------\n'
-                                      '99.VOLTAR\n'
-                                      '0.INÍCIO\n')
-                                pdv = int(input('\nSelecione um PDV: '))
-                                if pdv == 99:
-                                    compType = 99
+                    if control in [9, 99]:
+                        os.system('cls')
+                        break
+
+                    control = 1
+
+                    while True:
+
+                        if control in [9, 999]:
+                            break
+
+                        pdv = str(pdv)
+                        os.system('cls')
+                        header(f'> PONTO DE VENDA - {branchName} <\n')
+                        hostIP = displayCompInfoByType(compValues, econectValues, hardwareValues, option, pdv)
+
+                        # Menu after showing details
+                        showCompByTypeOptions(option)
+                        while pdvOption not in pdvOptions:
+                            # Tests if Option 1 was selected after executing a SSH command
+                            if control == 99 and pdvOption == 404:
+                                control, pdvOption = 1, 1
+                            else:
+                                pdvOption = int(input('Selecione uma opção: '))
+                            # Option 1 - SSH
+                            if pdvOption == 1:
+                                sshOptions = [1, 9, 0]
+                                sshOption = 404
+
+                                SSH_PORT = 22
+                                SSH_HOST, SSH_USER, SSH_PASSWD, computerName, computerCreds = \
+                                    getComputerCredentials(customerName, branch, hostIP, 'computers.json')
+                                os.system('cls')
+                                commandType, commandOption = displaySshOptions(computerName, branchName)
+                                if commandType == 9:
                                     control = 99
+                                    pdvOption = 99
                                     os.system('cls')
                                     break
-                                elif pdv == 0:
-                                    control = 9
-                                    compType = 0
-                                    break
-                                if pdv not in pdvs:
-                                    os.system('cls')
-                                    pdvs = showPdvs(compValues, branchName)
-                                    print('\n> Erro. Selecione um PDV válido!')
+                                else:
+                                    print('\nTentando realizar conexão SSH...\n')
+                                    SSH_Connection(SSH_HOST,
+                                                   SSH_PORT,
+                                                   SSH_USER,
+                                                   SSH_PASSWD,
+                                                   commandType,
+                                                   commandOption,
+                                                   branch,
+                                                   computerName,
+                                                   branchName)
+                                    showAfterSshOptions()
+                                    while sshOption not in sshOptions:
+                                        sshOption = int(input('Selecione uma opção: '))
+                                        # Option 1 - Execute another command
+                                        if sshOption == 1:
+                                            control = 99
+                                            pdvOption = 404
+                                            break
+                                        # Option 9 - Back
+                                        elif sshOption == 9:
+                                            control = 999
+                                            pdvOption = 404
+                                            break
+                                        # Option 0 - Quit
+                                        elif sshOption == 0:
+                                            quit()
 
-                            if control in [9, 99]:
+                                    # Options from line 547
+                                    if sshOption == 1:
+                                        continue
+                                    elif sshOption == 9:
+                                        break
+                                    elif sshOption == 0:
+                                        break
+
+                            # Option 9 - back
+                            if pdvOption == 9:
+                                control = 999
                                 os.system('cls')
                                 break
-
-                            control = 1
-
-                            while True:
-
-                                if control in [9, 999]:
-                                    break
-
-                                pdv = str(pdv)
+                            # Option 0 - home
+                            elif pdvOption == 0:
+                                control = 9
+                                compType = 0
+                                break
+                            if pdvOption not in pdvOptions:
                                 os.system('cls')
-                                header(f'> PONTO DE VENDA - {branchName} <\n')
-                                hostIP = displayCompInfoByType(compValues, econectValues, hardwareValues, compType, pdv)
+                                header(f'> PONTO DE VENDA - {branch} <\n')
+                                displayCompInfoByType(compValues, econectValues, hardwareValues,
+                                                      customerName, option, pdv)
+                                showCompByTypeOptions(option)
+                                print('> Erro. Selecione uma opção válida!\n')
+                                continue
 
-                                # Menu after showing details
-                                showCompByTypeOptions(compType)
-                                while pdvOption not in pdvOptions:
-                                    # Tests if Option 1 was selected after executing a SSH command
-                                    if control == 99 and pdvOption == 404:
-                                        control, pdvOption = 1, 1
-                                    else:
-                                        pdvOption = int(input('Selecione uma opção: '))
-                                    # Option 1 - SSH
-                                    if pdvOption == 1:
-                                        sshOptions = [1, 9, 0]
-                                        sshOption = 404
-
-                                        SSH_PORT = 22
-                                        SSH_HOST, SSH_USER, SSH_PASSWD, computerName, computerCreds = \
-                                            getComputerCredentials(customerName, branch, hostIP, 'computers.json')
-                                        os.system('cls')
-                                        commandType, commandOption = displaySshOptions(computerName, branchName)
-                                        if commandType == 9:
-                                            control = 99
-                                            pdvOption = 99
-                                            os.system('cls')
-                                            break
-                                        else:
-                                            print('\nTentando realizar conexão SSH...\n')
-                                            SSH_Connection(SSH_HOST,
-                                                           SSH_PORT,
-                                                           SSH_USER,
-                                                           SSH_PASSWD,
-                                                           commandType,
-                                                           commandOption,
-                                                           branch,
-                                                           computerName,
-                                                           branchName)
-                                            showAfterSshOptions()
-                                            while sshOption not in sshOptions:
-                                                sshOption = int(input('Selecione uma opção: '))
-                                                # Option 1 - Execute another command
-                                                if sshOption == 1:
-                                                    control = 99
-                                                    pdvOption = 404
-                                                    break
-                                                # Option 9 - Back
-                                                elif sshOption == 9:
-                                                    control = 9999
-                                                    pdvOption = 404
-                                                    break
-                                                # Option 0 - Quit
-                                                elif sshOption == 0:
-                                                    quit()
-
-                                            # Options from line 547
-                                            if sshOption == 1:
-                                                continue
-                                            elif sshOption == 9:
-                                                break
-                                            elif sshOption == 0:
-                                                break
-
-                                    # Option 9 - back
-                                    if pdvOption == 9:
-                                        control = 999
-                                        os.system('cls')
-                                        break
-                                    # Option 0 - home
-                                    elif pdvOption == 0:
-                                        control = 9
-                                        compType = 0
-                                        break
-                                    if pdvOption not in pdvOptions:
-                                        os.system('cls')
-                                        header(f'> PONTO DE VENDA - {branch} <\n')
-                                        displayCompInfoByType(compValues, econectValues, hardwareValues,
-                                                              customerName, compType, pdv)
-                                        showCompByTypeOptions(compType)
-                                        print('> Erro. Selecione uma opção válida!\n')
-                                        continue
-
-                if compType == 9:
+                if option == '9':
                     if computerOption == 9:
                         control = 999
                     if control == 99:
                         control = 999
-                    option = 0
+                    option = '0'
                     continue
-                elif compType == 0:
-                    control = 9
+                elif option == '0':
+                    control = '9'
                     break
