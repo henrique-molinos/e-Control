@@ -4,6 +4,7 @@ import time
 import os
 from showStuff import header
 
+
 def getComputerCredentials(customer, branch, ip, credentialsFile):
     with open(credentialsFile) as cf:
         credentialsFile = json.load(cf)

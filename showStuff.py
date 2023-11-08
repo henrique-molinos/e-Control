@@ -534,9 +534,6 @@ def displaySshOptions(computerName, branchName):
                                       '------------------------------------------------------\n'
                                       '9.VOLTAR\n')
                                 continue
-                                # cautionOption = input( '\n[!] ATENÇÃO: O comando selecionado - 1.Finalizar
-                                # aplicações Java -' ' está prestes a ser executado. Você tem certeza que quer
-                                # continuar? (S/N): ').lower()
                         elif commandOption == 2:
                             cautionOption = input(
                                 '\n[!] ATENÇÃO: O comando selecionado - 2.Finalizar aplicações Java -'
@@ -550,14 +547,12 @@ def displaySshOptions(computerName, branchName):
                                 os.system('cls')
                                 header(f'> CONEXÃO SSH - {computerName} - {branchName} <\n')
                                 print('COMANDOS DE EXECUÇÃO:\n'
-                                      '1.Desconectar sessões ativas via VNC\n'
+                                      '1.Desconectar sessões ativas do VNC\n'
                                       '2.Finalizar aplicações Java\n'
                                       '3.Corrigir arquivos de monitor (estrutura.sh & parametros.sh)\n'
                                       '------------------------------------------------------\n'
                                       '9.VOLTAR\n')
-                                cautionOption = input(
-                                    '\n[!] ATENÇÃO: O comando selecionado - 2.Finalizar aplicações Java -'
-                                    ' está prestes a ser executado. Você tem certeza que quer continuar? (S/N): ').lower()
+                                continue
                         elif commandOption == 3:
                             cautionOption = input(
                                 '\n[!] ATENÇÃO: O comando selecionado - 2.Corrigir arquivos de monitor -'
@@ -572,14 +567,12 @@ def displaySshOptions(computerName, branchName):
                                 os.system('cls')
                                 header(f'> CONEXÃO SSH - {computerName} - {branchName} <\n')
                                 print('COMANDOS DE EXECUÇÃO:\n'
-                                      '1.Desconectar sessões ativas via VNC\n'
+                                      '1.Desconectar sessões ativas do VNC\n'
                                       '2.Finalizar aplicações Java\n'
                                       '3.Corrigir arquivos de monitor (estrutura.sh & parametros.sh)\n'
                                       '------------------------------------------------------\n'
                                       '9.VOLTAR\n')
-                                cautionOption = input(
-                                    '\n[!] ATENÇÃO: O comando selecionado - 2.Finalizar aplicações Java -'
-                                    ' está prestes a ser executado. Você tem certeza que quer continuar? (S/N): ').lower()
+                                continue
 
                     if commandOption == 9:
                         commandControl = 999
