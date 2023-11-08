@@ -4,6 +4,7 @@ import time
 import os
 from showStuff import header
 
+
 def getComputerCredentials(customer, branch, ip, credentialsFile):
     with open(credentialsFile) as cf:
         credentialsFile = json.load(cf)
@@ -111,7 +112,6 @@ def SSH_Connection(SSH_HOST, SSH_PORT, SSH_USER, SSH_PASSWD, commandType, comman
                 os.system('cls')
                 header(f'> CONEXÃO SSH - {computerName} - {branchName} <\n')
                 print('Conexão realizada com sucesso!\n')
-                # logOption = input('Deseja gerar arquivo de log? (S/N): ').lower()
                 continue
 
         if logOption == 's':
@@ -126,7 +126,7 @@ def SSH_Connection(SSH_HOST, SSH_PORT, SSH_USER, SSH_PASSWD, commandType, comman
                     if not executionErrors:
                         # Check if there's titles
                         if titles[i]:
-                            print(titles[i])
+                            print('\n' + titles[i])
                             outFile.write(titles[i] + '\n')
                         else:
                             pass
@@ -170,7 +170,7 @@ def SSH_Connection(SSH_HOST, SSH_PORT, SSH_USER, SSH_PASSWD, commandType, comman
                 executionErrors = stderr.readlines()
                 if not executionErrors:
                     if titles[i]:
-                        print(titles[i])
+                        print('\n' + titles[i])
                     else:
                         pass
 
