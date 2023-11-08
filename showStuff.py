@@ -19,12 +19,14 @@ def showCustomers():
           '4.Pazini\n'
           '5.Único\n'
           '-----------\n'
+          '9.SSH\n'
           '0.SAIR\n')
 
 
 def showBranches(customer):
     header(f'> SELEÇÃO DE LOJA - {customer} <\n')
     if customer.lower() == 'beltrame':
+        print('2Dq61PWSoqX*oB5FksP\n')
         print('LOJAS DISPONÍVEIS\n'
               '1.Euclides da Cunha (Matriz)\n'
               '2.Parque Pinheiro\n'
@@ -436,8 +438,8 @@ def displaySshOptions(computerName, branchName):
                 print('> Erro. Informe um código de tipo de comando válido!\n')
                 continue
 
-        queryCommandOptions = [1, 2, 3, 4, 9]
-        executionCommandOptions = [1, 2, 9]
+        queryCommandOptions = [1, 2, 3, 4, 5, 9]
+        executionCommandOptions = [1, 2, 3, 9]
         commandOption = 404
         commandControl = 404
 
@@ -450,10 +452,11 @@ def displaySshOptions(computerName, branchName):
                     os.system('cls')
                     header(f'> CONEXÃO SSH - {computerName} - {branchName} <\n')
                     print('COMANDOS DE CONSULTA:\n'
-                          '1.Verificar memória livre -> free -h\n'
-                          '2.Verificar dispositivos USB conectados -> lsusb\n'
-                          '3.Verificar hardware -- SO / Procesador / Memória / Armazenamento\n'
+                          '1.Verificar memória livre\n'
+                          '2.Verificar dispositivos USB conectados\n'
+                          '3.Verificar hardware -> SO / Procesador / Memória / Armazenamento\n'
                           '4.Verificar conteúdo estrutura.sh e parametros.sh\n'
+                          '5.Verificar comunicação com a VPN GSurf\n'
                           '------------------------------------------------------\n'
                           '9.VOLTAR\n')
                     print('> Erro. Informe um código de comando válido!\n')
@@ -465,10 +468,11 @@ def displaySshOptions(computerName, branchName):
                     os.system('cls')
                     header(f'> CONEXÃO SSH - {computerName} - {branchName} <\n')
                     print('COMANDOS DE CONSULTA:\n'
-                          '1.Verificar memória livre -> free -h\n'
-                          '2.Verificar dispositivos USB conectados -> lsusb\n'
-                          '3.Verificar hardware -- SO / Procesador / Memória / Armazenamento\n'
+                          '1.Verificar memória livre\n'
+                          '2.Verificar dispositivos USB conectados\n'
+                          '3.Verificar hardware -> SO / Procesador / Memória / Armazenamento\n'
                           '4.Verificar conteúdo estrutura.sh e parametros.sh\n'
+                          '5.Verificar comunicação com a VPN GSurf\n'
                           '-----------------------------------------------\n'
                           '9.VOLTAR\n')
                     commandOption = int(input('Selecione uma opção: '))
@@ -487,8 +491,9 @@ def displaySshOptions(computerName, branchName):
                     os.system('cls')
                     header(f'> CONEXÃO SSH - {computerName} - {branchName} <\n')
                     print('COMANDOS DE EXECUÇÃO:\n'
-                          '1.Desconectar sessões ativas via VNC\n'
-                          '2.Corrigir arquivos de monitor (estrutura.sh & parametros.sh)\n'
+                          '1.Desconectar sessões ativas do VNC\n'
+                          '2.Finalizar aplicações Java\n'
+                          '3.Corrigir arquivos de monitor (estrutura.sh & parametros.sh)\n'
                           '------------------------------------------------------\n'
                           '9.VOLTAR\n')
                     print('> Erro. Informe um código de comando válido!\n')
@@ -500,17 +505,92 @@ def displaySshOptions(computerName, branchName):
                     os.system('cls')
                     header(f'> CONEXÃO SSH - {computerName} - {branchName} <\n')
                     print('COMANDOS DE EXECUÇÃO:\n'
-                          '1.Desconectar sessões ativas via VNC\n'
-                          '2.Corrigir arquivos de monitor (estrutura.sh & parametros.sh)\n'
+                          '1.Desconectar sessões ativas do VNC\n'
+                          '2.Finalizar aplicações Java\n'
+                          '3.Corrigir arquivos de monitor (estrutura.sh & parametros.sh)\n'
                           '------------------------------------------------------\n'
                           '9.VOLTAR\n')
                     commandOption = int(input('Selecione uma opção: '))
+
+                    cautionOptions = ['s', 'n']
+                    cautionOption = ''
+                    while cautionOption not in cautionOptions:
+                        if commandOption == 1:
+                            cautionOption = input(
+                                '\n[!] ATENÇÃO: O comando selecionado - 1.Desconectar sessões ativas do VNC -'
+                                ' está prestes a ser executado. Você tem certeza que quer continuar? (S/N): ').lower()
+                            if cautionOption == 's':
+                                return commandType, commandOption
+                            elif cautionOption == 'n':
+                                commandControl = 999
+                                break
+                            if cautionOption not in cautionOptions:
+                                os.system('cls')
+                                header(f'> CONEXÃO SSH - {computerName} - {branchName} <\n')
+                                print('COMANDOS DE EXECUÇÃO:\n'
+                                      '1.Desconectar sessões ativas do VNC\n'
+                                      '2.Finalizar aplicações Java\n'
+                                      '3.Corrigir arquivos de monitor (estrutura.sh & parametros.sh)\n'
+                                      '------------------------------------------------------\n'
+                                      '9.VOLTAR\n')
+                                continue
+                                # cautionOption = input( '\n[!] ATENÇÃO: O comando selecionado - 1.Finalizar
+                                # aplicações Java -' ' está prestes a ser executado. Você tem certeza que quer
+                                # continuar? (S/N): ').lower()
+                        elif commandOption == 2:
+                            cautionOption = input(
+                                '\n[!] ATENÇÃO: O comando selecionado - 2.Finalizar aplicações Java -'
+                                ' está prestes a ser executado. Você tem certeza que quer continuar? (S/N): ').lower()
+                            if cautionOption == 's':
+                                return commandType, commandOption
+                            elif cautionOption == 'n':
+                                commandControl = 999
+                                break
+                            if cautionOption not in cautionOptions:
+                                os.system('cls')
+                                header(f'> CONEXÃO SSH - {computerName} - {branchName} <\n')
+                                print('COMANDOS DE EXECUÇÃO:\n'
+                                      '1.Desconectar sessões ativas via VNC\n'
+                                      '2.Finalizar aplicações Java\n'
+                                      '3.Corrigir arquivos de monitor (estrutura.sh & parametros.sh)\n'
+                                      '------------------------------------------------------\n'
+                                      '9.VOLTAR\n')
+                                cautionOption = input(
+                                    '\n[!] ATENÇÃO: O comando selecionado - 2.Finalizar aplicações Java -'
+                                    ' está prestes a ser executado. Você tem certeza que quer continuar? (S/N): ').lower()
+                        elif commandOption == 3:
+                            cautionOption = input(
+                                '\n[!] ATENÇÃO: O comando selecionado - 2.Corrigir arquivos de monitor -'
+                                ' está prestes a ser executado. Você tem certeza que quer continuar? (S/N): ').lower()
+                            if cautionOption == 's':
+                                return commandType, commandOption
+                            elif cautionOption == 'n':
+                                commandControl = 999
+                                break
+
+                            if cautionOption not in cautionOptions:
+                                os.system('cls')
+                                header(f'> CONEXÃO SSH - {computerName} - {branchName} <\n')
+                                print('COMANDOS DE EXECUÇÃO:\n'
+                                      '1.Desconectar sessões ativas via VNC\n'
+                                      '2.Finalizar aplicações Java\n'
+                                      '3.Corrigir arquivos de monitor (estrutura.sh & parametros.sh)\n'
+                                      '------------------------------------------------------\n'
+                                      '9.VOLTAR\n')
+                                cautionOption = input(
+                                    '\n[!] ATENÇÃO: O comando selecionado - 2.Finalizar aplicações Java -'
+                                    ' está prestes a ser executado. Você tem certeza que quer continuar? (S/N): ').lower()
+
                     if commandOption == 9:
                         commandControl = 999
                         break
                     if commandOption not in executionCommandOptions:
                         commandControl = 99
                         continue
+
+                    if commandControl == 999:
+                        break
+
         elif commandType == 99:
             return commandType, commandOption
 

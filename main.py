@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -68,7 +66,7 @@ control = 0
 
 # Customer selection screen
 while True:
-    customers = [1, 2, 3, 4, 5]
+    customers = [1, 2, 3, 4, 5, 9]
     customer = 404
     customerName = ''
 
@@ -271,6 +269,19 @@ while True:
                     ECONECT_RANGE_NAME = 'Unico_Econect!A50:L71'
                     HARDWARE_RANGE_NAME = 'Unico_Hardware!A50:J71'
 
+        elif customer == 9:
+            os.system('cls')
+            header('> SSH <\n')
+            print('Para voltar, informe "9" no IP da conexão\n')
+            print('-----------------------------------------\n')
+            session = input('Informe o IP da conexão: ')
+            if session == '9':
+                control = 9
+                continue
+            sessionUser = input('Usuário: ')
+            os.popen(f'start cmd /k "ssh {sessionUser}@{session}"')
+            control = 9
+            continue
         if branch == 9:
             os.system('cls')
             break
@@ -541,14 +552,14 @@ while True:
                                                     control = 99
                                                     pdvOption = 404
                                                     break
+                                                # Option 9 - Back
                                                 elif sshOption == 9:
                                                     control = 9999
                                                     pdvOption = 404
                                                     break
+                                                # Option 0 - Quit
                                                 elif sshOption == 0:
-                                                    control = 9
-                                                    compType = 0
-                                                    break
+                                                    quit()
 
                                             # Options from line 547
                                             if sshOption == 1:
