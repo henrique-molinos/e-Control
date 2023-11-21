@@ -8,7 +8,7 @@ from googleapiclient.errors import HttpError
 # from data import *
 from showStuff import *
 # SSH Connection
-from sshcnx import SSH_Connection, getComputerCredentials
+from sshcnx import SSH_Connection, multipleSSHConnection, getComputerCredentials
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
@@ -272,14 +272,52 @@ while True:
                     HARDWARE_RANGE_NAME = 'Unico_Hardware!A50:J71'
 
         elif customer == 9:
+            sshOptions = [1, 9, 0]
+            sshOption = 404
+
             os.system('cls')
             header('> SSH <\n')
-            print('Para voltar, informe "9" no IP da conexão\n')
+            print('Opções - (informar no IP da conexão)\n'
+                  '0.SSH EM LOTE\n'
+                  '9.VOLTAR')
             print('-----------------------------------------\n')
             session = input('Informe o IP da conexão: ')
             if session == '9':
                 control = 9
                 continue
+            elif session == '0':
+                commandOption = showMultipleSSHOptions()
+                if commandOption == 9:
+                    control = 99
+                    os.system('cls')
+                    break
+                else:
+                    multipleSSHConnection(commandOption)
+                    showAfterSshOptions()
+                    while sshOption not in sshOptions:
+                        sshOption = int(input('Selecione uma opção: '))
+                        # Option 1 - Execute another command
+                        if sshOption == 1:
+                            control = 99
+                            pdvOption = 404
+                            break
+                        # Option 9 - Back
+                        elif sshOption == 9:
+                            control = 999
+                            pdvOption = 404
+                            break
+                        # Option 0 - Quit
+                        elif sshOption == 0:
+                            quit()
+
+                # Options from line 547
+                if sshOption == 1:
+                    continue
+                elif sshOption == 9:
+                    break
+                elif sshOption == 0:
+                    break
+
             sessionUser = input('Usuário: ')
             os.popen(f'start cmd /k "ssh {sessionUser}@{session}"')
             control = 9

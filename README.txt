@@ -10,13 +10,9 @@ O foco da ferramenta não é que se possa fazer tudo através dela, mas que ela 
 
 1. Copiar o diretório inteiro para a sua máquina
 
-2. O arquivo de execução é o main.py. Crie um atalho dele e renomeie conforme o seu critério
+2. O arquivo de execução é o main.exe - crie um atalho dele e renomeie para e-Control, se desejar
 
-3. Ao abrir o arquivo de execução (main.py) e selecionar cliente e loja pela primeira vez, o programa abrirá o navegador para autenticação
-
-4. Faça a autenticação com a sua conta do Google autorizada junto ao desenvolvimento
-
-5. Para que o módulo de SSH consiga gerar os logs sem erro no programa, deve ser criada a pasta "logs" no diretório raiz do programa
+3. Para que o módulo de SSH consiga gerar os logs sem erro no programa, verifique a existência da pasta "log" no diretório raiz do programa
 
 
 

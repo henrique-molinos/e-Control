@@ -13,7 +13,9 @@ def getComputerCredentials(customer, branch, ip, credentialsFile):
             return cred['host'], cred['user'], cred['passwd'], cred['name'], cred
 
 
-def SSH_Connection(SSH_HOST, SSH_PORT, SSH_USER, SSH_PASSWD, commandType, commandOption, branch, computerName, branchName):
+def SSH_Connection(SSH_HOST, SSH_PORT, SSH_USER, SSH_PASSWD,
+                   commandType, commandOption,
+                   branch, computerName, branchName):
     client = SSHClient()
     client.load_system_host_keys()
     client.set_missing_host_key_policy(AutoAddPolicy())
@@ -74,6 +76,21 @@ def SSH_Connection(SSH_HOST, SSH_PORT, SSH_USER, SSH_PASSWD, commandType, comman
                 ]
                 titles = [
                     '>> VERIFICAÇÃO DE COMUNICAÇÃO VPN GSURF <<'
+                ]
+            elif commandOption == 6:
+                schema = ''
+                if 'concentrador' in str(computerName).lower():
+                    schema = 'concentrador'
+                elif 'pdv' in str(computerName).lower():
+                    schema = 'pdv'
+                commands = [
+                    f'echo \'SELECT table_schema "{schema}", ROUND(SUM(data_length + index_length)'
+                    f' / 1024 / 1024, 1) "Size (MB)" '
+                    f'FROM information_schema.tables '
+                    f'WHERE table_schema = "{schema}"\' | mysql -ueconect -p123456 {schema} -t'
+                ]
+                titles = [
+                    '>> VERIFICAÇÃO DO TAMANHO DO BD <<'
                 ]
             else:
                 print('Opção inválida')
@@ -162,7 +179,7 @@ def SSH_Connection(SSH_HOST, SSH_PORT, SSH_USER, SSH_PASSWD, commandType, comman
                             print(errorLine)
                             outFile.write(f'{time.strftime("%d/%m/%Y %H:%M:%S", time.localtime())} - ')
                             outFile.write(errorLine)
-                            
+
         elif logOption == 'n':
             for i, command in enumerate(commands):
                 stdin, stdout, stderr = client.exec_command(command)
@@ -206,3 +223,132 @@ def SSH_Connection(SSH_HOST, SSH_PORT, SSH_USER, SSH_PASSWD, commandType, comman
 
     finally:
         client.close()
+
+
+def multipleSSHConnection(commandOption):
+    commands = []
+    titles = []
+
+    with open('computers.json') as fh:
+        credentials = json.load(fh)
+
+    for cred in credentials:
+        try:
+            if commandOption == 1:
+                commands = [
+                    'free -h'
+                ]
+                titles = [
+                    '>> MEMÓRIA LIVRE <<'
+                ]
+            elif commandOption == 2:
+                commands = [
+                    'lsusb'
+                ]
+                titles = [
+                    '>> DISPOSITIVOS CONECTADOS <<'
+                ]
+            elif commandOption == 3:
+                commands = [
+                    'cat /etc/os-release',
+                    'cat /proc/cpuinfo',
+                    'dmidecode -t memory',
+                    'parted -l',
+                ]
+                titles = [
+                    '>> SISTEMA OPERACIONAL <<',
+                    '>> INFORMAÇÕES DO PROCESSADOR <<',
+                    '>> INFORMAÇÕES DA MEMÓRIA RAM <<',
+                    '>> INFORMAÇÕES DO ARMAZENAMENTO <<'
+                ]
+            elif commandOption == 4:
+                commands = [
+                    'cat /etc/conf.d/estrutura.sh',
+                    'cat /etc/conf.d/parametros.sh'
+                ]
+                titles = [
+                    '>> ESTRUTURA.SH <<',
+                    '>> PARAMETROS.SH <<'
+                ]
+            elif commandOption == 5:
+                commands = [
+                    'echo -n | telnet 127.0.0.1 4096'
+                ]
+                titles = [
+                    '>> VERIFICAÇÃO DE COMUNICAÇÃO VPN GSURF <<'
+                ]
+            elif commandOption == 6:
+                schema = ''
+                if 'concentrador' in str(cred['name']).lower():
+                    schema = 'concentrador'
+                elif 'pdv' in str(cred['name']).lower():
+                    schema = 'pdv'
+                commands = [
+                    f'echo \'SELECT table_schema "{schema}", ROUND(SUM(data_length + index_length)'
+                    f' / 1024 / 1024, 1) "Size (MB)" '
+                    f'FROM information_schema.tables '
+                    f'WHERE table_schema = "{schema}"\' | mysql -ueconect -p123456 {schema} -t'
+                ]
+                titles = [
+                    '>> VERIFICAÇÃO DO TAMANHO DO BD <<'
+                ]
+            else:
+                print('Opção inválida')
+
+            ssh = SSHClient()
+            ssh.set_missing_host_key_policy(AutoAddPolicy())
+            ssh.connect(cred['host'], 22, cred['user'], cred['passwd'])
+
+            for i, command in enumerate(commands):
+                with open('log\\logcmd-' + str(cred['customer']) + 'L' + str(cred['branch']) + '-' +
+                          str(cred['name']).replace(" ", "") + '-' +
+                          time.strftime("%d%m%Y_%H-%M-%S", time.localtime()) + '.txt', 'w') as outFile:
+                    stdin, stdout, stderr = ssh.exec_command(command)
+                    output = stdout.readlines()
+                    executionErrors = stderr.readlines()
+                    # In the case there's no error stored in stderr (normal situation)
+                    if not executionErrors:
+                        # Check if there's titles
+                        if titles[i]:
+                            print('\n' + titles[i])
+                            outFile.write(titles[i] + '\n')
+                        else:
+                            pass
+
+                        for line in output:
+                            print(line.strip())
+                            outFile.write(line)
+                        if not output:
+                            continue
+                        else:
+                            print('\n')
+                            outFile.write('\n')
+                    # In the case there's any error stored in stderr (command return)
+                    else:
+                        if titles[i]:
+                            print(titles[i])
+                            outFile.write(titles[i] + '\n')
+                        else:
+                            pass
+
+                        for line in output:
+                            print(line.strip())
+                            outFile.write(line)
+                        if not output:
+                            continue
+                        else:
+                            outFile.write('\n')
+
+                        print('[!] ERRO')
+                        outFile.write('[!] ERRO\n')
+                        for errorLine in executionErrors:
+                            print(errorLine)
+                            outFile.write(f'{time.strftime("%d/%m/%Y %H:%M:%S", time.localtime())} - ')
+                            outFile.write(errorLine)
+
+                ssh.close()
+
+                print('Comando executado no ' + str(cred['name']) + ' - ' + 'Loja ' + str(cred['branch']) + '!\n')
+
+        except Exception as excep:
+            print(f'Falha ao estabelecer conexão! Erro: {str(excep)}\n')

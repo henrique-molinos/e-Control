@@ -23,6 +23,67 @@ def showCustomers():
           '0.SAIR\n')
 
 
+def showMultipleSSHOptions():
+    commandControl = 0
+
+    while True:
+        if commandControl == 999:
+            os.system('cls')
+
+        header(f'> CONEXÃO SSH EM LOTE <\n')
+
+        queryCommandOptions = [1, 2, 3, 4, 5, 6, 9]
+        commandOption = 404
+        commandControl = 404
+
+        while commandOption not in queryCommandOptions:
+            # Tests if user entered an invalid option (line 68 condition)
+            if commandControl == 99:
+                os.system('cls')
+                header(f'> CONEXÃO SSH EM LOTE <\n')
+                print('COMANDOS DE CONSULTA:\n'
+                      '1.Verificar memória livre\n'
+                      '2.Verificar dispositivos USB conectados\n'
+                      '3.Verificar hardware -> SO / Procesador / Memória / Armazenamento\n'
+                      '4.Verificar conteúdo estrutura.sh e parametros.sh\n'
+                      '5.Verificar comunicação com a VPN GSurf\n'
+                      '6.Verificar tamanho do BD\n'
+                      '------------------------------------------------------\n'
+                      '9.VOLTAR\n')
+                print('> Erro. Informe um código de comando válido!\n')
+                commandOption = int(input('Selecione uma opção: '))
+                if commandOption == 9:
+                    commandControl = 999
+                    break
+            else:
+                os.system('cls')
+                header(f'> CONEXÃO SSH EM LOTE <\n')
+                print('COMANDOS DE CONSULTA:\n'
+                      '1.Verificar memória livre\n'
+                      '2.Verificar dispositivos USB conectados\n'
+                      '3.Verificar hardware -> SO / Procesador / Memória / Armazenamento\n'
+                      '4.Verificar conteúdo estrutura.sh e parametros.sh\n'
+                      '5.Verificar comunicação com a VPN GSurf\n'
+                      '6.Verificar tamanho do BD\n'
+                      '-----------------------------------------------\n'
+                      '9.VOLTAR\n')
+                commandOption = int(input('Selecione uma opção: '))
+
+                if commandOption == 9:
+                    commandControl = 999
+                    break
+                if commandOption not in queryCommandOptions:
+                    commandControl = 99
+                    continue
+
+                if commandControl == 999:
+                    break
+
+        if commandControl == 999:
+            continue
+
+        return commandOption
+
 def showBranches(customer):
     header(f'> SELEÇÃO DE LOJA - {customer} <\n')
     if customer.lower() == 'beltrame':
@@ -440,7 +501,7 @@ def displaySshOptions(computerName, branchName):
                 print('> Erro. Informe um código de tipo de comando válido!\n')
                 continue
 
-        queryCommandOptions = [1, 2, 3, 4, 5, 9]
+        queryCommandOptions = [1, 2, 3, 4, 5, 6, 9]
         executionCommandOptions = [1, 2, 3, 4, 9]
         commandOption = 404
         commandControl = 404
@@ -459,6 +520,7 @@ def displaySshOptions(computerName, branchName):
                           '3.Verificar hardware -> SO / Procesador / Memória / Armazenamento\n'
                           '4.Verificar conteúdo estrutura.sh e parametros.sh\n'
                           '5.Verificar comunicação com a VPN GSurf\n'
+                          '6.Verificar tamanho do BD\n'
                           '------------------------------------------------------\n'
                           '9.VOLTAR\n')
                     print('> Erro. Informe um código de comando válido!\n')
@@ -475,6 +537,7 @@ def displaySshOptions(computerName, branchName):
                           '3.Verificar hardware -> SO / Procesador / Memória / Armazenamento\n'
                           '4.Verificar conteúdo estrutura.sh e parametros.sh\n'
                           '5.Verificar comunicação com a VPN GSurf\n'
+                          '6.Verificar tamanho do BD\n'
                           '-----------------------------------------------\n'
                           '9.VOLTAR\n')
                     commandOption = int(input('Selecione uma opção: '))
