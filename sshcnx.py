@@ -119,6 +119,15 @@ def SSH_Connection(SSH_HOST, SSH_PORT, SSH_USER, SSH_PASSWD,
                     '>> ATUALIZAÇÃO DE ARQUIVOS DE DISPLAY /ETC/CONF.D/ <<',
                     '>> ATUALIZAÇÃO DO ARQUIVO /USR/BIN/MONITOR <<'
                 ]
+            elif commandOption == 4:
+                commands = [
+                    'reboot'
+                ]
+                titles = [
+                    '>> REINÍCIO DO COMPUTADOR <<'
+                ]
+            else:
+                print('Opção inválida!')
 
         logOptions = ['s', 'n']
         logOption = ''

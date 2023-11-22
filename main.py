@@ -474,7 +474,7 @@ while True:
                         print('> Erro. Selecione uma opção válida!\n')
                         continue
 
-            elif option == 'p':
+            elif option.lower() == 'p':
 
                 while True:
 
@@ -553,8 +553,8 @@ while True:
                                 sshOption = 404
 
                                 SSH_PORT = 22
-                                SSH_HOST, SSH_USER, SSH_PASSWD, computerName, computerCreds = \
-                                    getComputerCredentials(customerName, branch, hostIP, 'computers.json')
+                                SSH_HOST, SSH_USER, SSH_PASSWD, computerName, computerCreds = (
+                                    getComputerCredentials(customerName, branch, hostIP, 'computers.json'))
                                 os.system('cls')
                                 commandType, commandOption = displaySshOptions(computerName, branchName)
                                 if commandType == 9:

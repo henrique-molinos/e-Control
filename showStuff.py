@@ -191,24 +191,24 @@ def showEconectData(infoName,
                     infoBDCleanDate,
                     infoBDCleanAnalist):
     print(infoName, '\n')
-    print('> VERSIONAMENTO <\n'
-          '  Versão Atual:', infoCurrentVersion, '\n  '
-          'Versão Anterior:', infoOldVersion, '\n  '
-          'Data Atualização:', infoUpdateDate, '\n  '
-          'Atualizado por:', infoUpdateAnalist, '\n  ')
+    print('> VERSIONAMENTO <\n  '
+          f'Versão Atual: {infoCurrentVersion}\n  '
+          f'Versão Anterior: {infoOldVersion}\n  '
+          f'Data Atualização: {infoUpdateDate}\n  '
+          f'Atualizado por: {infoUpdateAnalist}\n  ')
 
-    print('> ARQUIVOS DE CORREÇÃO <\n'
-          '  Motivo Jar:', infoJarReason, '\n  '
-          'Ticket Jar:', infoJarTicket, '\n  '
-          'Data Inst. Jar:', infoJarDate, '\n  ')
+    print('> ARQUIVOS DE CORREÇÃO <\n  '
+          f'Motivo Jar: {infoJarReason}\n  '
+          f'Ticket Jar: {infoJarTicket}\n  '
+          f'Data Inst. Jar: {infoJarDate}\n  ')
 
-    print('> CLISITEF <\n'
-          '  Versão CliSiTEF:', infoClisitefVersion, '\n  ')
+    print('> CLISITEF <\n  '
+          f'Versão CliSiTEF: {infoClisitefVersion}\n  ')
 
-    print('> BANCO DE DADOS <\n'
-          '  Tamanho BD:', infoBDSize, '\n  '
-          'Data Limpeza BD:', infoBDCleanDate, '\n  '
-          'Analista Limp.:', infoBDCleanAnalist)
+    print('> BANCO DE DADOS <\n  '
+          f'Tamanho BD: {infoBDSize}\n  '
+          f'Data Limpeza BD: {infoBDCleanDate}\n  '  
+          f'Analista Limp.: {infoBDCleanAnalist}')
 
 
 def showHardwareCompData(infoProcessor,
@@ -598,6 +598,7 @@ def displaySshOptions(computerName, branchName):
                                       '1.Desconectar sessões ativas do VNC\n'
                                       '2.Finalizar aplicações Java\n'
                                       '3.Corrigir arquivos de monitor (estrutura.sh & parametros.sh)\n'
+                                      '4.Reiniciar PDV\n'
                                       '------------------------------------------------------\n'
                                       '9.VOLTAR\n')
                                 continue
