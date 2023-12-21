@@ -625,5 +625,5 @@ while True:
                     option = '0'
                     continue
                 elif option == '0':
-                    control = '9'
+                    control = 9
                     break
