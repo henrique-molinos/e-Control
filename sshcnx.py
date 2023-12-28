@@ -121,7 +121,7 @@ def SSH_Connection(SSH_HOST, SSH_PORT, SSH_USER, SSH_PASSWD,
                 ]
             elif commandOption == 4:
                 commands = [
-                    'reboot'
+                    '/sbin/reboot -f > /dev/null 2>&1 &'
                 ]
                 titles = [
                     '>> REINÍCIO DO COMPUTADOR <<'
