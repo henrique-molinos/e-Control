@@ -65,7 +65,7 @@ control = 0
 
 # Customer selection screen
 while True:
-    customers = [1, 2, 3, 4, 5, 9]
+    customers = [1, 2, 3, 4, 9]
     customer = 404
     customerName = ''
 
@@ -140,34 +140,6 @@ while True:
                     HARDWARE_RANGE_NAME = 'Beltrame_Hardware!A88:J113'
 
         elif customer == 2:
-            branches = [1, 9]
-            customerName = 'Bom Preço'
-            SAMPLE_RANGE_NAME = 'BomPreco_Geral!A5:F17'
-            ECONECT_RANGE_NAME = 'BomPreco_Econect!A5:L17'
-            HARDWARE_RANGE_NAME = 'BomPreco_Hardware!A5:J17'
-
-            os.system('cls')
-            showBranches(customerName)
-            while branch not in branches:
-                branch = int(input('Selecione uma loja: '))
-                if branch == 9:
-                    break
-                elif branch == 0:
-                    quit()
-
-                if branch not in branches:
-                    os.system('cls')
-                    showBranches(customerName)
-                    print('> Erro. Informe o código de uma loja válida!\n')
-                    continue
-
-                # Defining ranges on the table
-                if branch == 1:
-                    SAMPLE_RANGE_NAME = 'BomPreco_Geral!A5:F17'
-                    ECONECT_RANGE_NAME = 'BomPreco_Econect!A5:L17'
-                    HARDWARE_RANGE_NAME = 'BomPreco_Hardware!A5:J17'
-
-        elif customer == 3:
             branches = [1, 2, 3, 9]
             customerName = 'Lima'
             SAMPLE_RANGE_NAME = 'Lima_Geral!A5:F41'
@@ -203,7 +175,7 @@ while True:
                     ECONECT_RANGE_NAME = 'Lima_Econect!A30:L41'
                     HARDWARE_RANGE_NAME = 'Lima_Hardware!A30:J41'
 
-        elif customer == 4:
+        elif customer == 3:
             branches = [1, 2, 9]
             customerName = 'Pazini'
             SAMPLE_RANGE_NAME = 'Pazini_Geral!A5:F25'
@@ -235,7 +207,7 @@ while True:
                     ECONECT_RANGE_NAME = 'Pazini_Econect!A16:L25'
                     HARDWARE_RANGE_NAME = 'Pazini_Hardware!A16:J25'
 
-        elif customer == 5:
+        elif customer == 4:
             branches = [1, 2, 3, 9]
             customerName = 'Único'
             SAMPLE_RANGE_NAME = 'Unico_Geral!A5:F71'
@@ -263,13 +235,13 @@ while True:
                     ECONECT_RANGE_NAME = 'Unico_Econect!A5:L29'
                     HARDWARE_RANGE_NAME = 'Unico_Hardware!A5:J29'
                 elif branch == 2:
-                    SAMPLE_RANGE_NAME = 'Unico_Geral!A31:F48'
-                    ECONECT_RANGE_NAME = 'Unico_Econect!A31:L48'
-                    HARDWARE_RANGE_NAME = 'Unico_Hardware!A31:J48'
+                    SAMPLE_RANGE_NAME = 'Unico_Geral!A31:F47'
+                    ECONECT_RANGE_NAME = 'Unico_Econect!A31:L47'
+                    HARDWARE_RANGE_NAME = 'Unico_Hardware!A31:J47'
                 elif branch == 3:
-                    SAMPLE_RANGE_NAME = 'Unico_Geral!A50:F71'
-                    ECONECT_RANGE_NAME = 'Unico_Econect!A50:L71'
-                    HARDWARE_RANGE_NAME = 'Unico_Hardware!A50:J71'
+                    SAMPLE_RANGE_NAME = 'Unico_Geral!A49:F70'
+                    ECONECT_RANGE_NAME = 'Unico_Econect!A49:L70'
+                    HARDWARE_RANGE_NAME = 'Unico_Hardware!A49:J70'
 
         elif customer == 9:
             sshOptions = [1, 9, 0]
@@ -322,6 +294,7 @@ while True:
             os.popen(f'start cmd /k "ssh {sessionUser}@{session}"')
             control = 9
             continue
+
         if branch == 9:
             os.system('cls')
             break

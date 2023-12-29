@@ -14,10 +14,9 @@ def showCustomers():
     header('> SELEÇÃO DE CLIENTES <\n')
     print('CLIENTES\n'
           '1.Beltrame\n'
-          '2.Bom Preço\n'
-          '3.Lima\n'
-          '4.Pazini\n'
-          '5.Único\n'
+          '2.Lima\n'
+          '3.Pazini\n'
+          '4.Único\n'
           '-----------\n'
           '9.SSH\n'
           '0.SAIR\n')
@@ -95,13 +94,6 @@ def showBranches(customer):
               '4.Venâncio Aires\n'
               '5.Camobi\n'
               '----------------------------\n'
-              '9.VOLTAR\n'
-              '0.SAIR\n')
-
-    elif customer.lower() == 'bom preço':
-        print('LOJAS DISPONÍVEIS\n'
-              '1.São Pedro do Sul\n'
-              '------------------\n'
               '9.VOLTAR\n'
               '0.SAIR\n')
 
